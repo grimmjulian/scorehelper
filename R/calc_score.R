@@ -1,0 +1,30 @@
+# The calculation is based on
+# https://www.deutsche-turnliga.de/dtl/wissen/regeln.html
+
+calc_score <- function(home = 0, guest = 0) {
+  diff <- home - guest
+  diff <- abs(diff)
+  score <- 0
+
+  if (diff < 0.15) {
+    score <- 0
+  } else if (diff < 0.3) {
+    score <- 1
+  } else if (diff < 0.55) {
+    score <- 2
+  } else if (diff < 1.05) {
+    score <- 3
+  } else if (diff < 2.05) {
+    score <- 4
+  } else if (diff < 6.05) {
+    score <- 5
+  } else {
+    score <- 10
+  }
+
+  if (home >= guest) {
+    return(c(score, 0))
+  } else {
+    return(c(0, score))
+  }
+}
