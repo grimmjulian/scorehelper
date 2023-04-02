@@ -14,3 +14,11 @@ RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Collate: 
+    'calc_score.R'
+    'gymnast.R'
+    'routine.R'
+    'pairing.R'
+    'event.R'
+Imports: 
+    methods

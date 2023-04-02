@@ -28,3 +28,5 @@ calc_score <- function(home = 0, guest = 0) {
     return(c(0, score))
   }
 }
+
+setGeneric("score", function(x, ...) standardGeneric("score"))
