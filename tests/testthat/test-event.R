@@ -9,3 +9,10 @@ test_that("as.data.frame works for event", {
 test_that("scoring for an event works", {
   expect_equal(score(new("Event")), c(0, 0))
 })
+
+test_that("as.list works for events", {
+  expect_equal(
+    as.list(new("Event")),
+    list(new("Pairing"), new("Pairing"), new("Pairing"), new("Pairing"))
+  )
+})

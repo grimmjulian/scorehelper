@@ -29,4 +29,10 @@ calc_score <- function(home = 0, guest = 0) {
   }
 }
 
+#' Calculate the score results
+#'
+#' @param x An object to calculate the score from
+#' @param ... Extra named arguments
+#' @rdname score
+#' @export
 setGeneric("score", function(x, ...) standardGeneric("score"))
