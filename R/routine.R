@@ -29,3 +29,20 @@ methods::setMethod("as.data.frame", "Routine", function(x) {
     "evalue" = x@evalue
   )
 })
+dvalueUI <- function(id) {
+  shiny::numericInput(id, value = 0, min = 0, max = 5, step = 0.1, label = "")
+}
+
+endvalueUI <- function(id) {
+  shiny::numericInput(id, value = 0, min = 0, max = 20, step = 0.05, label = "")
+}
+
+routineUI <- function(id) {
+  shiny::tagList(
+  shiny::fluidRow(
+    shiny::column(6, shiny::textInput(shiny::NS(id, "gymnast"), value = "Max Mustermann", label = "NULL")),
+    shiny::column(3, dvalueUI(shiny::NS(id, "dvalue"))),
+    shiny::column(3, endvalueUI(shiny::NS(id, "endvalue")))
+  )
+  )
+}

@@ -15,7 +15,7 @@ methods::setClass(
   prototype = list(
     id = NA_integer_,
     name = NA_character_,
-    birthday = NA,
+    birthday = as.Date(NA),
     nationality = NA_character_
   )
 )
