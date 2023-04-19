@@ -36,13 +36,3 @@ dvalueUI <- function(id) {
 endvalueUI <- function(id) {
   shiny::numericInput(id, value = 0, min = 0, max = 20, step = 0.05, label = "")
 }
-
-routineUI <- function(id) {
-  shiny::tagList(
-  shiny::fluidRow(
-    shiny::column(6, shiny::textInput(shiny::NS(id, "gymnast"), value = "Max Mustermann", label = "NULL")),
-    shiny::column(3, dvalueUI(shiny::NS(id, "dvalue"))),
-    shiny::column(3, endvalueUI(shiny::NS(id, "endvalue")))
-  )
-  )
-}
