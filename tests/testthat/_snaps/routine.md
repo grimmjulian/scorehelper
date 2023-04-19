@@ -3,6 +3,6 @@
     Code
       as.data.frame(new("Routine"))
     Output
-        gymnast dvalue evalue
-      1    <NA>      0      0
+        gymnast dvalue endvalue
+      1    <NA>      0        0
 

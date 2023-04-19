@@ -3,7 +3,7 @@
 #' An S4 class that stores a routinge
 #' @slot gymnast A gymnast object
 #' @slot dvalue Numeric dvalue
-#' @slot evalue Numeric evalue
+#' @slot endvalue Numeric endvalue
 #' @export
 
 methods::setClass(
@@ -11,12 +11,12 @@ methods::setClass(
   slots = c(
     gymnast = "Gymnast",
     dvalue = "numeric",
-    evalue = "numeric"
+    endvalue = "numeric"
   ),
   prototype = list(
     gymnast = new("Gymnast"),
     dvalue = 0,
-    evalue = 0
+    endvalue = 0
   )
 )
 
@@ -26,13 +26,64 @@ methods::setMethod("as.data.frame", "Routine", function(x) {
   data.frame(
     "gymnast" = x@gymnast@name,
     "dvalue" = x@dvalue,
-    "evalue" = x@evalue
+    "endvalue" = x@endvalue
   )
 })
+
+valueUI <- function(id, max, step) {
+  shiny::numericInput(shiny::NS(id, "value"),
+    value = 0,
+    min = 0,
+    max = max,
+    step = step,
+    label = ""
+  )
+}
+
 dvalueUI <- function(id) {
-  shiny::numericInput(id, value = 0, min = 0, max = 5, step = 0.1, label = "")
+  valueUI(id, max = 10, step = 0.1)
 }
 
 endvalueUI <- function(id) {
-  shiny::numericInput(id, value = 0, min = 0, max = 20, step = 0.05, label = "")
+  valueUI(id, max = 20, step = 0.05)
+}
+
+valueServer <- function(id) {
+  shiny::moduleServer(id, function(input, output, session) {
+    value <- shiny::reactive(input$value)
+    if (!is.numeric(value())) {
+      value <- function() 0
+    }
+    return(value)
+  })
+}
+
+routineResultUI <- function(id) {
+  gymnastname <-
+    shiny::textInput(shiny::NS(id, "gymnastname"),
+      label = ""
+    )
+  dvalue <- dvalueUI(shiny::NS(id, "dvalue"))
+  endvalue <- endvalueUI(shiny::NS(id, "endvalue"))
+  shiny::tagList(
+    shiny::fluidRow(
+      shiny::column(6, gymnastname),
+      shiny::column(3, dvalue),
+      shiny::column(3, endvalue)
+    ),
+    shiny::verbatimTextOutput(shiny::NS(id, "debug"))
+  )
+}
+
+routineResultServer <- function(id) {
+  shiny::moduleServer(id, function(input, output, session) {
+    gymnast <- shiny::reactive(new("Gymnast", name = input$gymnastname))
+    routine <- shiny::reactive(new("Routine",
+      gymnast = gymnast(),
+      dvalue = valueServer("dvalue")(),
+      endvalue = valueServer("endvalue")()
+    ))
+    output$debug <- shiny::renderPrint(routine())
+    return(routine)
+  })
 }
