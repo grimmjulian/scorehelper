@@ -58,6 +58,16 @@ valueServer <- function(id) {
   })
 }
 
+routineHeaderUI <- function() {
+  shiny::tagList(
+    shiny::fluidRow(
+      shiny::column(6, "Turner"),
+      shiny::column(3, "D-Note"),
+      shiny::column(3, "Endwert")
+    )
+  )
+}
+
 routineResultUI <- function(id) {
   gymnastname <-
     shiny::textInput(shiny::NS(id, "gymnastname"),
