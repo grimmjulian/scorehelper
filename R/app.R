@@ -4,13 +4,11 @@ app <- function(...) {
     titlePanel(
       "Scorehelper by Julian"
     ),
-    routineResultUI("test"),
-    pairingResultUI("test2")
+    eventResultUI("test")
   )
 
   server <- function(input, output, session) {
-    routineResultServer("test")
-    pairingResultServer("test2")
+    eventResultServer("test")
   }
 
   shinyApp(ui, server)
