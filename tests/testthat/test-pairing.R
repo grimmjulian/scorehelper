@@ -5,10 +5,10 @@ test_that("prototype pairing works", {
 test_that("score points get calculated correctly", {
   pairing <- new("Pairing")
   expect_equal(score(pairing), c(0, 0))
-  routine <- new("Routine", evalue = 2)
+  routine <- new("Routine", endvalue = 2)
   pairing@home <- routine
   expect_equal(score(pairing), c(4, 0))
-  routine2 <- new("Routine", evalue = 2.5)
+  routine2 <- new("Routine", endvalue = 2.5)
   pairing@guest <- routine2
   expect_equal(score(pairing), c(0, 2))
 })

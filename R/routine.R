@@ -70,8 +70,7 @@ routineResultUI <- function(id) {
       shiny::column(6, gymnastname),
       shiny::column(3, dvalue),
       shiny::column(3, endvalue)
-    ),
-    shiny::verbatimTextOutput(shiny::NS(id, "debug"))
+    )
   )
 }
 
@@ -83,7 +82,6 @@ routineResultServer <- function(id) {
       dvalue = valueServer("dvalue")(),
       endvalue = valueServer("endvalue")()
     ))
-    output$debug <- shiny::renderPrint(routine())
     return(routine)
   })
 }

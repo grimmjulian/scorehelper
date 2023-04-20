@@ -19,6 +19,7 @@ Imports:
     methods,
     shiny
 Collate: 
+    'app.R'
     'calc_score.R'
     'gymnast.R'
     'routine.R'
