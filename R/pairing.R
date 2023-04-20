@@ -83,7 +83,7 @@ pairingResultServer <- function(id, home_starts = TRUE) {
   shiny::moduleServer(id, function(input, output, session) {
     routine_home <- routineResultServer("home")
     routine_guest <- routineResultServer("guest")
-    pairing <- shiny::reactive(new("Pairing", home = routine_home(), guest = routine_guest(), home_starts = home_starts))
+    pairing <- shiny::reactive(methods::new("Pairing", home = routine_home(), guest = routine_guest(), home_starts = home_starts))
     s <- shiny::reactive(score(pairing()))
     output$score_home <- shiny::renderText(s()[1])
     output$score_guest <- shiny::renderText(s()[2])

@@ -1,7 +1,6 @@
-library(shiny)
 app <- function(...) {
-  ui <- fluidPage(
-    titlePanel(
+  ui <- shiny::fluidPage(
+    shiny::titlePanel(
       "Scorehelper by Julian"
     ),
     eventResultUI("test")
@@ -11,5 +10,5 @@ app <- function(...) {
     eventResultServer("test")
   }
 
-  shinyApp(ui, server)
+  shiny::shinyApp(ui, server)
 }

@@ -86,8 +86,9 @@ routineResultUI <- function(id) {
 
 routineResultServer <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
-    gymnast <- shiny::reactive(new("Gymnast", name = input$gymnastname))
-    routine <- shiny::reactive(new("Routine",
+    gymnast <- shiny::reactive(methods::new("Gymnast",
+                                            name = input$gymnastname))
+    routine <- shiny::reactive(methods::new("Routine",
       gymnast = gymnast(),
       dvalue = valueServer("dvalue")(),
       endvalue = valueServer("endvalue")()

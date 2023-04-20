@@ -69,7 +69,7 @@ eventResultUI <- function(id, home_starts = TRUE) {
 
 eventResultServer <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
-    event <- shiny::reactive(new("Event",
+    event <- shiny::reactive(methods::new("Event",
       first = pairingResultServer("first", input$home_starts)(),
       second = pairingResultServer("second", input$home_starts)(),
       third = pairingResultServer("third", !input$home_starts)(),
