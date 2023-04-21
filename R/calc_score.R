@@ -36,3 +36,11 @@ calc_score <- function(home = 0, guest = 0) {
 #' @rdname score
 #' @export
 setGeneric("score", function(x, ...) standardGeneric("score"))
+
+#' Rate the score results
+#'
+#' @param x An object to calculate the rating from
+#' @param ... Extra named arguments
+#' @rdname rating
+#' @export
+setGeneric("rating", function(x, ...) standardGeneric("rating"))

@@ -39,25 +39,30 @@ methods::setMethod("score", "Event", function(x) {
   score(x@first) + score(x@second) + score(x@third) + score(x@fourth)
 })
 
+#' Rate the score result of an event
+#' @param x An object to rate the score
+methods::setMethod("rating", "Event", function(x) {
+  rating(x@first) + rating(x@second) + rating(x@third) + rating(x@fourth)
+})
+
 methods::setMethod("as.list", "Event", function(x) {
   list(x@first, x@second, x@third, x@fourth)
 })
 
 eventScoreUI <- function(id) {
-    shiny::fluidRow(
-                    shiny::column(3, ""),
-                    shiny::column(2, "Summe"),
-                    shiny::column(1, scoreUI(shiny::NS(id, "score_home"))),
-                    shiny::column(3, ""),
-                    shiny::column(2, "Summe"),
-                    shiny::column(1, scoreUI(shiny::NS(id, "score_guest")))
-    )
-
+  shiny::fluidRow(
+    shiny::column(3, ""),
+    shiny::column(2, "Summe"),
+    shiny::column(1, scoreUI(shiny::NS(id, "score_home"))),
+    shiny::column(3, ""),
+    shiny::column(2, "Summe"),
+    shiny::column(1, scoreUI(shiny::NS(id, "score_guest")))
+  )
 }
 
 eventResultUI <- function(id, home_starts = TRUE) {
   shiny::tagList(
-                 pairingHeaderUI(),
+    pairingHeaderUI(),
     pairingResultUI(shiny::NS(id, "first")),
     pairingResultUI(shiny::NS(id, "second")),
     pairingResultUI(shiny::NS(id, "third")),

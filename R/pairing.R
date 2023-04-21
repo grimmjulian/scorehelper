@@ -15,7 +15,7 @@ methods::setClass(
   prototype = list(
     home = new("Routine"),
     guest = new("Routine"),
-    home_starts = TRUE 
+    home_starts = TRUE
   )
 )
 
@@ -23,6 +23,13 @@ methods::setClass(
 #' @param x An object to calculate the score from
 methods::setMethod("score", "Pairing", function(x) {
   calc_score(home = x@home@endvalue, guest = x@guest@endvalue)
+})
+
+#' Calculate the score result of a pairing
+#' @param x An object to calculate the score from
+methods::setMethod("rating", "Pairing", function(x) {
+  s <- score(x)
+  return(s[1] - s[2])
 })
 
 methods::setMethod("as.data.frame", "Pairing", function(x) {
@@ -58,21 +65,21 @@ beginsUI <- function(id) {
 
 beginsServer <- function(id, starts) {
   shiny::moduleServer(id, function(input, output, session) {
-                        if (starts) {
-                          output$indicator_begins <- shiny::renderText("X")
-                        } else {
-                          output$indicator_begins <- shiny::renderText("O")
-                        }
+    if (starts) {
+      output$indicator_begins <- shiny::renderText("X")
+    } else {
+      output$indicator_begins <- shiny::renderText("O")
+    }
   })
 }
 
 pairingResultUI <- function(id) {
   shiny::tagList(
     shiny::fluidRow(
-                    shiny::column(1, beginsUI(shiny::NS(id, "home_starts"))),
+      shiny::column(1, beginsUI(shiny::NS(id, "home_starts"))),
       shiny::column(4, routineResultUI(shiny::NS(id, "home"))),
       shiny::column(1, scoreUI(shiny::NS(id, "score_home"))),
-                    shiny::column(1, beginsUI(shiny::NS(id, "guest_starts"))),
+      shiny::column(1, beginsUI(shiny::NS(id, "guest_starts"))),
       shiny::column(4, routineResultUI(shiny::NS(id, "guest"))),
       shiny::column(1, scoreUI(shiny::NS(id, "score_guest")))
     )

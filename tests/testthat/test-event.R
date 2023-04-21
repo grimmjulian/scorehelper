@@ -16,3 +16,7 @@ test_that("as.list works for events", {
     list(new("Pairing"), new("Pairing"), new("Pairing"), new("Pairing"))
   )
 })
+
+test_that("rating of an event works", {
+  expect_equal(rating(new("Event")), 0)
+})
