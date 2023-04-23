@@ -20,3 +20,14 @@ test_that("as.list works for events", {
 test_that("rating of an event works", {
   expect_equal(rating(new("Event")), 0)
 })
+
+test_that("Creation of an event from two lists of routines works", {
+  home <- lapply(1:4, FUN = function(x) {
+    methods::new("Routine", endvalue = x)
+  })
+  guest <- lapply(5:8, FUN = function(x) {
+    methods::new("Routine", endvalue = x)
+  })
+  event <- Event.routines(home, guest)
+  expect_snapshot(event)
+})

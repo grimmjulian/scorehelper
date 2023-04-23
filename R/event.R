@@ -49,6 +49,28 @@ methods::setMethod("as.list", "Event", function(x) {
   list(x@first, x@second, x@third, x@fourth)
 })
 
+Event.pairings <- function(pairings) {
+  stopifnot(length(pairings) == 4)
+  stopifnot(all(sapply(pairings, is, class2 = "Pairing")))
+  names(pairings) <- c("first", "second", "third", "fourth")
+  args <- c(Class = "Event", pairings)
+  event <- do.call(methods::new, args = args)
+  return(event)
+}
+
+Event.routines <- function(home, guest, home_starts = TRUE) {
+  stopifnot(all(sapply(home, is, class2 = "Routine")))
+  stopifnot(all(sapply(guest, is, class2 = "Routine")))
+  home_starts <- c(home_starts, home_starts, !home_starts, !home_starts)
+  pairings <- mapply(methods::new,
+                     home = home,
+                     guest = guest,
+                     home_starts = home_starts,
+                     MoreArgs = list(Class = "Pairing"))
+  event <- Event.pairings(pairings)
+  return(event)
+}
+
 eventScoreUI <- function(id) {
   shiny::fluidRow(
     shiny::column(3, ""),
