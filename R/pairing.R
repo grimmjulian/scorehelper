@@ -41,4 +41,3 @@ methods::setMethod("as.data.frame", "Pairing", function(x) {
   colnames(df)[5:8] <- paste0(colnames(df)[5:8], "_guest")
   df
 })
-

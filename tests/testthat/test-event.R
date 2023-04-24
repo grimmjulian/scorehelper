@@ -29,7 +29,7 @@ test_that("Creation of an event from two lists of routines works", {
     methods::new("Routine", endvalue = x)
   })
   event <- Event.routines(home, guest)
-  expect_snapshot(event)
+  expect_snapshot(as.data.frame(event))
 })
 
 test_that("extraction of the routines of one team from an event works", {
@@ -48,6 +48,5 @@ test_that("reordering of routines in an event works", {
   e <- lapply(r, function(x) new("Pairing", home = x[[1]], guest = x[[2]]))
   e <- new("Event", first = e[[1]], second = e[[2]], third = e[[3]], fourth = e[[4]])
   g <- reorder(e, home_order = 4:1, guest_order = c(3, 4, 1, 2))
-  expect_snapshot(g)
   expect_snapshot(as.data.frame(g))
 })
