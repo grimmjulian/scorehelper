@@ -19,3 +19,15 @@ if (n < 3) {
 }
   return(perms)
 }
+
+order_of_events <- function(events, for_home = TRUE) {
+  rating <- sapply(events, rating)
+  o <- order(rating, decreasing = for_home)
+  return(o)
+}
+
+get_all_routine_combinations <- function(event, for_home = TRUE) {
+  events <- all_pairing_combs(event)
+  o <- order_of_events(events, for_home)
+  return(events[o])
+}

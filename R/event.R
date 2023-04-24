@@ -51,7 +51,7 @@ methods::setMethod("as.list", "Event", function(x) {
 
 team_routines <- function(event, team = "guest") {
   event <- as.list(event)
-  routines <- lapply(event, slot, name = team)
+  routines <- lapply(event, methods::slot, name = team)
   return(routines)
 }
 
@@ -66,7 +66,7 @@ methods::setMethod("reorder",
 
 Event.pairings <- function(pairings) {
   stopifnot(length(pairings) == 4)
-  stopifnot(all(sapply(pairings, is, class2 = "Pairing")))
+  stopifnot(all(sapply(pairings, methods::is, class2 = "Pairing")))
   names(pairings) <- c("first", "second", "third", "fourth")
   args <- c(Class = "Event", pairings)
   event <- do.call(methods::new, args = args)
@@ -74,8 +74,8 @@ Event.pairings <- function(pairings) {
 }
 
 Event.routines <- function(home, guest, home_starts = TRUE) {
-  stopifnot(all(sapply(home, is, class2 = "Routine")))
-  stopifnot(all(sapply(guest, is, class2 = "Routine")))
+  stopifnot(all(sapply(home, methods::is, class2 = "Routine")))
+  stopifnot(all(sapply(guest, methods::is, class2 = "Routine")))
   home_starts <- c(home_starts, home_starts, !home_starts, !home_starts)
   pairings <- mapply(methods::new,
     home = home,
