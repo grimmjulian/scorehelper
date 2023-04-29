@@ -49,7 +49,8 @@ methods::setMethod("as.list", "Event", function(x) {
   list(x@first, x@second, x@third, x@fourth)
 })
 
-team_routines <- function(event, team = "guest") {
+team_routines <- function(event, team = "home") {
+  stopifnot(team %in% c("home", "guest"))
   event <- as.list(event)
   routines <- lapply(event, slot, name = team)
   return(routines)
