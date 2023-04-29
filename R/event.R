@@ -56,14 +56,16 @@ team_routines <- function(event, team = "home") {
   return(routines)
 }
 
-methods::setMethod("reorder",
-                   "Event", 
-                   function(x, home_order = 1:4, guest_order = 1:4, home_starts = x@first@home_starts) {
-  home <- team_routines(x, team = "home")[home_order]
-  guest <- team_routines(x, team = "guest")[guest_order]
-  event <- Event.routines(home, guest, home_starts = home_starts)
-  return(event)
-})
+methods::setMethod(
+  "reorder",
+  "Event",
+  function(x, home_order = 1:4, guest_order = 1:4, home_starts = x@first@home_starts) {
+    home <- team_routines(x, team = "home")[home_order]
+    guest <- team_routines(x, team = "guest")[guest_order]
+    event <- Event.routines(home, guest, home_starts = home_starts)
+    return(event)
+  }
+)
 
 Event.pairings <- function(pairings) {
   stopifnot(length(pairings) == 4)
@@ -88,3 +90,12 @@ Event.routines <- function(home, guest, home_starts = TRUE) {
   return(event)
 }
 
+routine_order <- function(home_starts = TRUE) {
+  stopifnot(is.logical(home_starts))
+  a <- list(c(1, 3, 6, 8), c(2, 4, 5, 7))
+  if (!home_starts) {
+    a <- rev(a)
+  }
+  names(a) <- c("home", "guest")
+  return(a)
+}

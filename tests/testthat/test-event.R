@@ -50,3 +50,8 @@ test_that("reordering of routines in an event works", {
   g <- reorder(e, home_order = 4:1, guest_order = c(3, 4, 1, 2))
   expect_snapshot(as.data.frame(g))
 })
+
+test_that("the order of the routines is right", {
+  expect_equal(routine_order(TRUE), list(home = c(1, 3, 6, 8), guest = c(2, 4, 5, 7)))
+  expect_equal(routine_order(FALSE), list(home = c(2, 4, 5, 7), guest = c(1, 3, 6, 8)))
+})
