@@ -11,12 +11,14 @@ methods::setClass(
   slots = c(
     gymnast = "Gymnast",
     dvalue = "numeric",
-    endvalue = "numeric"
+    endvalue = "numeric",
+    variance = "numeric"
   ),
   prototype = list(
     gymnast = new("Gymnast"),
     dvalue = 0,
-    endvalue = 0
+    endvalue = 0,
+    variance = 0
   )
 )
 
@@ -29,4 +31,3 @@ methods::setMethod("as.data.frame", "Routine", function(x) {
     "endvalue" = x@endvalue
   )
 })
-
