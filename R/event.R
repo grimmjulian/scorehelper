@@ -99,3 +99,14 @@ routine_order <- function(home_starts = TRUE) {
   names(a) <- c("home", "guest")
   return(a)
 }
+
+methods::setMethod(
+  "sort",
+  "Event",
+  function(x, home = TRUE) {
+    x <- as.list(x)
+    x <- x[order(sapply(x, rating), decreasing = home)]
+    event <- Event.pairings(x)
+    return(event)
+  }
+)

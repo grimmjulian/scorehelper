@@ -55,3 +55,12 @@ test_that("the order of the routines is right", {
   expect_equal(routine_order(TRUE), list(home = c(1, 3, 6, 8), guest = c(2, 4, 5, 7)))
   expect_equal(routine_order(FALSE), list(home = c(2, 4, 5, 7), guest = c(1, 3, 6, 8)))
 })
+
+test_that("sorting the pairings in an event works", {
+  endvalue <- c(1, 2, 3, 4, 1.4, 1.2, 4, 2.5)
+  r <- lapply(endvalue, function(x) new("Routine", endvalue = x))
+  r <- split(r, f = c(1, 1, 2, 2, 3, 3, 4, 4))
+  e <- lapply(r, function(x) new("Pairing", home = x[[1]], guest = x[[2]]))
+  e <- new("Event", first = e[[1]], second = e[[2]], third = e[[3]], fourth = e[[4]])
+  expect_snapshot(as.data.frame(sort(e)))
+})

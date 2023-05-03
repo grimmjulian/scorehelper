@@ -46,3 +46,19 @@
       3              2           0
       4              4           5
 
+# sorting the pairings in an event works
+
+    Code
+      as.data.frame(sort(e))
+    Output
+        gymnast_home dvalue_home endvalue_home score_home gymnast_guest dvalue_guest
+      1         <NA>           0           4.0          4          <NA>            0
+      2         <NA>           0           1.4          1          <NA>            0
+      3         <NA>           0           1.0          0          <NA>            0
+      4         <NA>           0           3.0          0          <NA>            0
+        endvalue_guest score_guest
+      1            2.5           0
+      2            1.2           0
+      3            2.0           3
+      4            4.0           3
+
