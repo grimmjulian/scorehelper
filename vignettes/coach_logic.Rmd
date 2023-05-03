@@ -1,0 +1,39 @@
+---
+title: "coach_logic"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{coach_logic}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(scorehelper)
+```
+
+# Heim beginnt, Heim soll gewinnen, 2 Paarungen
+
+Reihenfolge und Vor- oder Nachlegen spielt für die Turner keine Rolle.
+Insgesamt gibt es 4 Möglichkeiten, die Übungen zu den zwei Paarungen anzuordnen.
+Heim und Gast kennen beide alle möglichen Kombinationen der Übungen und passen dementsprechend an.
+Gast sieht, mit welcher Übung Heim beginnt und schaut dann auf seiner Liste, was er dagegen setzen muss.
+
+Nach der ersten Übung ist damit schon fix, wie das Übungen gesetzt werden:
+Gast setzt einfach so, dass es für ihn passt.
+
+Was passiert, wenn Heim fürs Vorlegen die zwei Paarungen setzt, 
+die für das Gesamt Beste Ergebnis für Gast die zwei Paarungen setzt,
+die den wenigsten Gewinn für Gast darstellen?
+
+
+# Heim beginnt, Heim soll gewinnen, 4 Paarungen
+
+die ersten zwei Paarungen müssen die zwei Paarungen aus dem schlechtesten Geräteergebnis für den Gast sein, die für Heim am besten sind.
+
