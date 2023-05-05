@@ -15,3 +15,10 @@ get_first_two_pairings <- function(event, home_starts = TRUE) {
   return(pairings)
 }
 
+get_all_pairing_combs <- function(pairings) {
+  home <- lapply(pairings, methods::slot, name = "home")
+  guest <- lapply(pairings, methods::slot, name = "guest")
+  combs <- expand.grid(home = home, guest = guest)
+  pairing_combs <- mapply(methods::new, home = combs$home, guest = combs$guest, MoreArgs = list(Class = "Pairing"))
+  return(pairing_combs)
+}
