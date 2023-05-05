@@ -64,3 +64,14 @@ test_that("sorting the pairings in an event works", {
   e <- new("Event", first = e[[1]], second = e[[2]], third = e[[3]], fourth = e[[4]])
   expect_snapshot(as.data.frame(sort(e)))
 })
+
+test_that("getting all permutations of an event works", {
+  endvalue <- c(1, 2, 3, 4, 1.4, 1.2, 4, 2.5)
+  r <- lapply(endvalue, function(x) new("Routine", endvalue = x))
+  r <- split(r, f = c(1, 1, 2, 2, 3, 3, 4, 4))
+  e <- lapply(r, function(x) new("Pairing", home = x[[1]], guest = x[[2]]))
+  e <- new("Event", first = e[[1]], second = e[[2]], third = e[[3]], fourth = e[[4]])
+  l <- permn_event(e)
+  expect_snapshot(as.data.frame(l[[1]]))
+  expect_snapshot(as.data.frame(l[[2]]))
+})

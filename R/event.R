@@ -110,3 +110,11 @@ methods::setMethod(
     return(event)
   }
 )
+
+permn_event <- function(event) {
+  orders <- combinat::permn(1:4)
+  FUN <- function(o) {
+    reorder(event, guest_order = o)
+  }
+  lapply(orders, FUN)
+}
