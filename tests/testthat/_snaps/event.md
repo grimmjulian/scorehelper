@@ -30,6 +30,22 @@
       3              7           5
       4              8           5
 
+# Creation of event with only one pairing works
+
+    Code
+      as.data.frame(event)
+    Output
+        gymnast_home dvalue_home endvalue_home score_home gymnast_guest dvalue_guest
+      1         <NA>           0            10         10          <NA>            0
+      2         <NA>           0             0          0          <NA>            0
+      3         <NA>           0             0          0          <NA>            0
+      4         <NA>           0             0          0          <NA>            0
+        endvalue_guest score_guest
+      1              0           0
+      2              0           0
+      3              0           0
+      4              0           0
+
 # reordering of routines in an event works
 
     Code

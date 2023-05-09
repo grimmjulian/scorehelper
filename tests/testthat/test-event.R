@@ -25,6 +25,12 @@ test_that("Creation of an event from two lists of routines works", {
   expect_snapshot(as.data.frame(event))
 })
 
+test_that("Creation of event with only one pairing works", {
+  r1 <- new("Routine", endvalue = 10)
+  p <- new("Pairing", home = r1)
+  event <- Event.pairings(list(p))
+  expect_snapshot(as.data.frame(event))
+})
 test_that("extraction of the routines of one team from an event works", {
   r <- lapply(1:8, function(x) new("Routine", endvalue = x))
   r1 <- r

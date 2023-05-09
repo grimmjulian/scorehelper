@@ -1,4 +1,4 @@
-# as.data.frame works for routine
+# routine output as data.frame works
 
     Code
       as.data.frame(new("Routine"))

@@ -58,9 +58,10 @@ methods::setMethod(
 )
 
 Event.pairings <- function(pairings) {
-  stopifnot(length(pairings) == 4)
   stopifnot(all(sapply(pairings, methods::is, class2 = "Pairing")))
-  event <- methods::new("Event", pairings)
+  stopifnot(length(pairings) <= 4)
+  event <- methods::new("Event")
+  event[seq_len(length(pairings))] <- pairings
   return(event)
 }
 

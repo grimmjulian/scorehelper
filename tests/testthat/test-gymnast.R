@@ -3,8 +3,7 @@ test_that("prototype gymnast works", {
 })
 
 test_that("validation of gymnast works", {
-  expect_error(new("Gymnast", dvalue = 1:2))
-  expect_error(new("Gymnast", dvalue = -1))
-  expect_error(new("Gymnast", endvalue = 1:2))
-  expect_error(new("Gymnast", endvalue = -1))
+  expect_error(new("Gymnast", id = LETTERS[1:2]))
+  expect_error(new("Gymnast", name = LETTERS[1:2]))
+  expect_error(new("Gymnast", nationality = LETTERS[1:2]))
 })
