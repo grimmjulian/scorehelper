@@ -17,7 +17,6 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports: 
-    combinat,
     methods,
     shiny
 Collate: 
@@ -28,6 +27,7 @@ Collate:
     'pairing.R'
     'event.R'
     'event_app.R'
+    'home_starts.R'
     'pairing_app.R'
     'routine_app.R'
     'scorehelper-package.R'
