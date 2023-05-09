@@ -27,7 +27,7 @@ methods::setMethod("score", "Pairing", function(x) {
 
 #' Calculate the score result of a pairing
 #' @param x An object to calculate the score from
-methods::setMethod("rating", "Pairing", function(x) {
+methods::setMethod("score_diff", "Pairing", function(x) {
   s <- score(x)
   return(s[1] - s[2])
 })

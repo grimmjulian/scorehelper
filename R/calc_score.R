@@ -39,8 +39,8 @@ setGeneric("score", function(x, ...) standardGeneric("score"))
 
 #' Rate the score results
 #'
-#' @param x An object to calculate the rating from
+#' @param x An object to calculate the score_diff from
 #' @param ... Extra named arguments
-#' @rdname rating
+#' @rdname score_diff
 #' @export
-setGeneric("rating", function(x, ...) standardGeneric("rating"))
+setGeneric("score_diff", function(x, ...) standardGeneric("score_diff"))

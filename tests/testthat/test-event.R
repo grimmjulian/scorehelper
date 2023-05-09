@@ -10,8 +10,8 @@ test_that("scoring for an event works", {
   expect_equal(score(new("Event")), c(0, 0))
 })
 
-test_that("rating of an event works", {
-  expect_equal(rating(new("Event")), 0)
+test_that("score_diff of an event works", {
+  expect_equal(score_diff(new("Event")), 0)
 })
 
 test_that("Creation of an event from two lists of routines works", {
@@ -42,11 +42,6 @@ test_that("reordering of routines in an event works", {
   e <- new("Event", e)
   g <- reorder(e, home_order = 4:1, guest_order = c(3, 4, 1, 2))
   expect_snapshot(as.data.frame(g))
-})
-
-test_that("the order of the routines is right", {
-  expect_equal(routine_order(TRUE), list(home = c(1, 3, 6, 8), guest = c(2, 4, 5, 7)))
-  expect_equal(routine_order(FALSE), list(home = c(2, 4, 5, 7), guest = c(1, 3, 6, 8)))
 })
 
 test_that("sorting the pairings in an event works", {

@@ -12,10 +12,10 @@ methods::setClass(
   "Event",
   contains = "list",
   prototype = list(
-    new("Pairing"),
-    new("Pairing"),
-    new("Pairing"),
-    new("Pairing")
+    methods::new("Pairing"),
+    methods::new("Pairing"),
+    methods::new("Pairing"),
+    methods::new("Pairing")
   )
 )
 
@@ -36,8 +36,8 @@ methods::setMethod("score", "Event", function(x) {
 
 #' Rate the score result of an event
 #' @param x An object to rate the score
-methods::setMethod("rating", "Event", function(x) {
-  Reduce(`+`, lapply(x, rating))
+methods::setMethod("score_diff", "Event", function(x) {
+  Reduce(`+`, lapply(x, score_diff))
 })
 
 team_routines <- function(event, team = "home") {
@@ -60,7 +60,7 @@ methods::setMethod(
 Event.pairings <- function(pairings) {
   stopifnot(length(pairings) == 4)
   stopifnot(all(sapply(pairings, methods::is, class2 = "Pairing")))
-  event <- new("Event", pairings)
+  event <- methods::new("Event", pairings)
   return(event)
 }
 
@@ -83,7 +83,7 @@ methods::setMethod(
   "Event",
   function(x, decreasing = TRUE) {
     x <- as.list(x)
-    x <- x[order(sapply(x, rating), decreasing = decreasing)]
+    x <- x[order(sapply(x, score_diff), decreasing = decreasing)]
     event <- Event.pairings(x)
     return(event)
   }

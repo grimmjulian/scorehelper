@@ -23,7 +23,6 @@ Imports:
 Collate: 
     'app.R'
     'calc_score.R'
-    'coach.R'
     'gymnast.R'
     'routine.R'
     'pairing.R'

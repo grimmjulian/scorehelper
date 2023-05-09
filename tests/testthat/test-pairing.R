@@ -19,11 +19,11 @@ test_that("as.data.frame works for pairing", {
 
 test_that("pairings are rated the correct way", {
   pairing <- new("Pairing")
-  expect_equal(rating(pairing), 0)
+  expect_equal(score_diff(pairing), 0)
   routine <- new("Routine", endvalue = 2)
   pairing@home <- routine
-  expect_equal(rating(pairing), 4)
+  expect_equal(score_diff(pairing), 4)
   routine2 <- new("Routine", endvalue = 2.5)
   pairing@guest <- routine2
-  expect_equal(rating(pairing), -2)
+  expect_equal(score_diff(pairing), -2)
 })
