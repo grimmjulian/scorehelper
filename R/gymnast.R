@@ -7,15 +7,25 @@
 methods::setClass(
   "Gymnast",
   slots = c(
-    id = "numeric",
+    id = "character",
     name = "character",
-    birthday = "Date",
     nationality = "character"
   ),
   prototype = list(
-    id = NA_integer_,
+    id = NA_character_,
     name = NA_character_,
-    birthday = as.Date(NA),
     nationality = NA_character_
   )
 )
+
+setValidity("Gymnast", function(object) {
+  if (length(object@id) > 1) {
+    "@id must be of length 1"
+  } else if (length(object@name) > 1) {
+    "@name must be of length 1"
+  } else if (length(object@nationality) > 1) {
+    "@nationality must be of length 1"
+  } else {
+    TRUE
+  }
+})
