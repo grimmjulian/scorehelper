@@ -78,22 +78,12 @@ Event.routines <- function(home, guest, home_starts = TRUE) {
   return(event)
 }
 
-routine_order <- function(home_starts = TRUE) {
-  stopifnot(is.logical(home_starts))
-  a <- list(c(1, 3, 6, 8), c(2, 4, 5, 7))
-  if (!home_starts) {
-    a <- rev(a)
-  }
-  names(a) <- c("home", "guest")
-  return(a)
-}
-
 methods::setMethod(
   "sort",
   "Event",
-  function(x, home = TRUE) {
+  function(x, decreasing = TRUE) {
     x <- as.list(x)
-    x <- x[order(sapply(x, rating), decreasing = home)]
+    x <- x[order(sapply(x, rating), decreasing = decreasing)]
     event <- Event.pairings(x)
     return(event)
   }
