@@ -10,48 +10,38 @@
 
 methods::setClass(
   "Event",
-  slots = c(
-    first = "Pairing",
-    second = "Pairing",
-    third = "Pairing",
-    fourth = "Pairing"
-  ),
+  contains = "list",
   prototype = list(
-    first = new("Pairing"),
-    second = new("Pairing"),
-    third = new("Pairing"),
-    fourth = new("Pairing")
+    new("Pairing"),
+    new("Pairing"),
+    new("Pairing"),
+    new("Pairing")
   )
 )
 
 methods::setMethod("as.data.frame", "Event", function(x) {
   rbind(
-    as.data.frame(x@first),
-    as.data.frame(x@second),
-    as.data.frame(x@third),
-    as.data.frame(x@fourth)
+    as.data.frame(x[[1]]),
+    as.data.frame(x[[2]]),
+    as.data.frame(x[[3]]),
+    as.data.frame(x[[4]])
   )
 })
 
 #' Calculate the score result of an event
 #' @param x An object to calculate the score from
 methods::setMethod("score", "Event", function(x) {
-  score(x@first) + score(x@second) + score(x@third) + score(x@fourth)
+  Reduce(`+`, lapply(x, score))
 })
 
 #' Rate the score result of an event
 #' @param x An object to rate the score
 methods::setMethod("rating", "Event", function(x) {
-  rating(x@first) + rating(x@second) + rating(x@third) + rating(x@fourth)
-})
-
-methods::setMethod("as.list", "Event", function(x) {
-  list(x@first, x@second, x@third, x@fourth)
+  Reduce(`+`, lapply(x, rating))
 })
 
 team_routines <- function(event, team = "home") {
   stopifnot(team %in% c("home", "guest"))
-  event <- as.list(event)
   routines <- lapply(event, methods::slot, name = team)
   return(routines)
 }
@@ -59,7 +49,7 @@ team_routines <- function(event, team = "home") {
 methods::setMethod(
   "reorder",
   "Event",
-  function(x, home_order = 1:4, guest_order = 1:4, home_starts = x@first@home_starts) {
+  function(x, home_order = 1:4, guest_order = 1:4, home_starts = x[[1]]@home_starts) {
     home <- team_routines(x, team = "home")[home_order]
     guest <- team_routines(x, team = "guest")[guest_order]
     event <- Event.routines(home, guest, home_starts = home_starts)
@@ -70,9 +60,7 @@ methods::setMethod(
 Event.pairings <- function(pairings) {
   stopifnot(length(pairings) == 4)
   stopifnot(all(sapply(pairings, methods::is, class2 = "Pairing")))
-  names(pairings) <- c("first", "second", "third", "fourth")
-  args <- c(Class = "Event", pairings)
-  event <- do.call(methods::new, args = args)
+  event <- new("Event", pairings)
   return(event)
 }
 
