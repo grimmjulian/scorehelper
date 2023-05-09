@@ -14,10 +14,18 @@ methods::setClass(
   prototype = list(
     methods::new("Pairing"),
     methods::new("Pairing"),
-    methods::new("Pairing"),
-    methods::new("Pairing")
+    methods::new("Pairing", home_starts = FALSE),
+    methods::new("Pairing", home_starts = FALSE)
   )
 )
+
+methods::setValidity("Event", function(object) {
+  if (home_starts(object[[1]]) == home_starts(object[[3]])) {
+    "home_starts for pairings is not set correctly."
+  } else {
+    TRUE
+  }
+})
 
 methods::setMethod("as.data.frame", "Event", function(x) {
   rbind(
@@ -62,6 +70,7 @@ Event.pairings <- function(pairings) {
   stopifnot(length(pairings) <= 4)
   event <- methods::new("Event")
   event[seq_len(length(pairings))] <- pairings
+  home_starts(event) <- home_starts(pairings[[1]])
   return(event)
 }
 
