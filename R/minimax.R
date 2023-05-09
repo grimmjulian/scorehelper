@@ -1,7 +1,6 @@
 minimax.p12 <- function(event) {
   events <- permutations(event)
-  orders <- order(sapply(events, score_diff), decreasing = home_starts(event))
-  event <- events[orders][[1]]
+  event <- ifelse(home_starts(event), min(events), max(events))
   e <- sort(event, decreasing = home_starts(event))
   return(e[1:2])
 }

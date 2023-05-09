@@ -24,3 +24,21 @@ methods::setMethod(
     return(x)
   }
 )
+
+methods::setMethod(
+  "max",
+  "Events",
+  function(x) {
+    x <- x[order(sapply(x, score_diff), decreasing = TRUE)]
+    return(x[[1]])
+  }
+)
+
+methods::setMethod(
+  "min",
+  "Events",
+  function(x) {
+    x <- x[order(sapply(x, score_diff), decreasing = FALSE)]
+    return(x[[1]])
+  }
+)
