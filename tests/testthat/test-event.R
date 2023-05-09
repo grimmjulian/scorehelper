@@ -31,6 +31,7 @@ test_that("Creation of event with only one pairing works", {
   event <- Event.pairings(list(p))
   expect_snapshot(as.data.frame(event))
 })
+
 test_that("extraction of the routines of one team from an event works", {
   r <- lapply(1:8, function(x) new("Routine", endvalue = x))
   r1 <- r
@@ -51,10 +52,18 @@ test_that("reordering of routines in an event works", {
 })
 
 test_that("sorting the pairings in an event works", {
-  endvalue <- c(1, 2, 3, 4, 1.4, 1.2, 4, 2.5)
+  endvalue <- c(1, 2, 3, 4, 10.4, 1.2, 4, 2.5)
   r <- lapply(endvalue, function(x) new("Routine", endvalue = x))
   r <- split(r, f = c(1, 1, 2, 2, 3, 3, 4, 4))
   e <- lapply(r, function(x) new("Pairing", home = x[[1]], guest = x[[2]]))
   e <- Event.pairings(e)
   expect_snapshot(as.data.frame(sort(e)))
+})
+
+test_that("all possible pairings based on event get created", {
+  r <- lapply(1:8, function(x) new("Routine", endvalue = x))
+  r <- split(r, f = c(1, 1, 2, 2, 3, 3, 4, 4))
+  e <- lapply(r, function(x) new("Pairing", home = x[[1]], guest = x[[2]]))
+  e <- Event.pairings(e)
+  expect_length(permutations(e), 24)
 })

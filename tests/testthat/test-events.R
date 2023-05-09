@@ -1,0 +1,10 @@
+test_that("sorting of events works", {
+  e1 <- new("Event")
+  r <- new("Routine", endvalue = 10)
+  p <- new("Pairing", home = r)
+  e2 <- Event.pairings(list(p))
+  events <- new("Events", list(e1, e2))
+  expect_equal(sapply(events, score_diff), c(0, 10))
+  expect_equal(sapply(sort(events), score_diff), c(0, 10))
+  expect_equal(sapply(sort(events, decreasing = TRUE), score_diff), c(10, 0))
+})

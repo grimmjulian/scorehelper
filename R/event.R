@@ -91,10 +91,16 @@ Event.routines <- function(home, guest, home_starts = TRUE) {
 methods::setMethod(
   "sort",
   "Event",
-  function(x, decreasing = TRUE) {
+  function(x, decreasing = FALSE) {
     x <- as.list(x)
     x <- x[order(sapply(x, score_diff), decreasing = decreasing)]
     event <- Event.pairings(x)
     return(event)
   }
 )
+
+permutations <- function(event) {
+  orders <- combinat::permn(1:4)
+  events <- lapply(orders, reorder, x = event)
+  new("Events", events)
+}
