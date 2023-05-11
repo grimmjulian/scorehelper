@@ -22,6 +22,7 @@ Imports:
     shiny
 Collate: 
     'app.R'
+    'as_data_frame.R'
     'gymnast.R'
     'routine.R'
     'pairing.R'

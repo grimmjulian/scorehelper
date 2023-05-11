@@ -33,13 +33,3 @@ methods::setValidity("Routine", function(object) {
     TRUE
   }
 })
-
-methods::setGeneric("as.data.frame")
-
-methods::setMethod("as.data.frame", "Routine", function(x) {
-  data.frame(
-    "gymnast" = x@gymnast@name,
-    "dvalue" = x@dvalue,
-    "endvalue" = x@endvalue
-  )
-})

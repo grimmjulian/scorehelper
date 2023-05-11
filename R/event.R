@@ -27,15 +27,6 @@ methods::setValidity("Event", function(object) {
   }
 })
 
-methods::setMethod("as.data.frame", "Event", function(x) {
-  rbind(
-    as.data.frame(x[[1]]),
-    as.data.frame(x[[2]]),
-    as.data.frame(x[[3]]),
-    as.data.frame(x[[4]])
-  )
-})
-
 team_routines <- function(event, team = "home") {
   stopifnot(team %in% c("home", "guest"))
   routines <- lapply(event, methods::slot, name = team)
