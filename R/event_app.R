@@ -23,11 +23,14 @@ eventResultUI <- function(id, home_starts = TRUE) {
 
 eventResultServer <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
-    event <- shiny::reactive(methods::new("Event",
-      first = pairingResultServer("first", input$home_starts)(),
-      second = pairingResultServer("second", input$home_starts)(),
-      third = pairingResultServer("third", !input$home_starts)(),
-      fourth = pairingResultServer("fourth", !input$home_starts)()
+    event <- shiny::reactive(
+     Event.pairings( 
+      list(
+        pairingResultServer("first", input$home_starts)(),
+        pairingResultServer("second", input$home_starts)(),
+        pairingResultServer("third", !input$home_starts)(),
+        pairingResultServer("fourth", !input$home_starts)()
+      )
     ))
     s <- shiny::reactive(score(event()))
     output$score_home <- shiny::renderText(s()[1])

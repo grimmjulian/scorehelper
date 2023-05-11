@@ -3,11 +3,11 @@ app <- function(...) {
     shiny::titlePanel(
       "Scorehelper by Julian"
     ),
-    eventResultUI("test")
+    eventResultUI("event")
   )
 
   server <- function(input, output, session) {
-    eventResultServer("test")
+    eventResultServer("event")
   }
 
   shiny::shinyApp(ui, server)
