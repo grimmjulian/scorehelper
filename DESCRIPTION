@@ -22,11 +22,11 @@ Imports:
     shiny
 Collate: 
     'app.R'
-    'as_data_frame.R'
     'gymnast.R'
     'routine.R'
     'pairing.R'
     'event.R'
+    'as_data_frame.R'
     'event_app.R'
     'events.R'
     'home_starts.R'

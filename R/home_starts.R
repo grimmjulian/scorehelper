@@ -1,3 +1,5 @@
+#' @include event.R
+
 #' Set the starting team in an object
 #'
 #' @param x An object to set the starting team to

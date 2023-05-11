@@ -1,3 +1,4 @@
+#' @include event.R
 methods::setGeneric("as.data.frame")
 
 methods::setMethod("as.data.frame", "Routine", function(x) {

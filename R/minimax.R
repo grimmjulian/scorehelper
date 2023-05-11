@@ -1,8 +1,9 @@
 minimax.p12 <- function(event) {
   events <- permutations(event)
-  event <- ifelse(home_starts(event), min(events), max(events))
+  foo <- ifelse(home_starts(event), min, max)
+  event <- foo(events)
   e <- sort(event, decreasing = home_starts(event))
-  return(e[1:2])
+  return(e)
 }
 
 identical_pairings <- function(x, y) {
@@ -30,12 +31,11 @@ pairings_in_event <- function(pairings, event) {
   all(sapply(pairings, pairing_in_event, event = event))
 }
 
-# minimax <- function(event) {
-#   p12 <- minimax.p12(event)
-#   events <- all_possible_events(event)
-#   events <- Filter(function(e) pairings_in_event(p12, e), events)
-#   event <- ifelse(home_starts(event), max(events), min(events))
-#   p34 <- remove_pairings(event, p12)
-#   minimax_event <- Event.pairings(c(p12, p34))
-#   return(minimax_event)
-# }
+minimax <- function(event) {
+  e1 <- minimax.p12(event)
+  e2 <- reorder(e1, home_order = c(1, 2, 4, 3))
+  events <- methods::new("Events", list(e1, e2))
+  foo <- ifelse(home_starts(event), max, min)
+  event <- foo(events)
+  return(event)
+}
