@@ -27,23 +27,6 @@ methods::setValidity("Event", function(object) {
   }
 })
 
-team_routines <- function(event, team = "home") {
-  stopifnot(team %in% c("home", "guest"))
-  routines <- lapply(event, methods::slot, name = team)
-  return(routines)
-}
-
-methods::setMethod(
-  "reorder",
-  "Event",
-  function(x, home_order = 1:4, guest_order = 1:4, home_starts = x[[1]]@home_starts) {
-    home <- team_routines(x, team = "home")[home_order]
-    guest <- team_routines(x, team = "guest")[guest_order]
-    event <- Event.routines(home, guest, home_starts = home_starts)
-    return(event)
-  }
-)
-
 Event.pairings <- function(pairings) {
   stopifnot(all(sapply(pairings, methods::is, class2 = "Pairing")))
   stopifnot(length(pairings) <= 4)
@@ -68,6 +51,17 @@ Event.routines <- function(home, guest, home_starts = TRUE) {
 }
 
 methods::setMethod(
+  "reorder",
+  "Event",
+  function(x, home_order = 1:4, guest_order = 1:4, home_starts = x[[1]]@home_starts) {
+    home <- team_routines(x, team = "home")[home_order]
+    guest <- team_routines(x, team = "guest")[guest_order]
+    event <- Event.routines(home, guest, home_starts = home_starts)
+    return(event)
+  }
+)
+
+methods::setMethod(
   "sort",
   "Event",
   function(x, decreasing = FALSE) {
@@ -77,6 +71,12 @@ methods::setMethod(
     return(event)
   }
 )
+
+team_routines <- function(event, team = "home") {
+  stopifnot(team %in% c("home", "guest"))
+  routines <- lapply(event, methods::slot, name = team)
+  return(routines)
+}
 
 permutations <- function(event) {
   orders <- combinat::permn(1:4)

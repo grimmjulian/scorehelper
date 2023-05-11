@@ -12,7 +12,7 @@ setGeneric("home_starts<-", function(x, value) standardGeneric("home_starts<-"))
 methods::setMethod("home_starts", "Pairing", function(x) x@home_starts)
 methods::setMethod("home_starts<-", "Pairing", function(x, value) {
   x@home_starts <- value
-  x
+  return(x)
 })
 
 #' Calculate the score result of a pairing
@@ -20,5 +20,6 @@ methods::setMethod("home_starts<-", "Pairing", function(x, value) {
 methods::setMethod("home_starts", "Event", function(x) x[[1]]@home_starts)
 methods::setMethod("home_starts<-", "Event", function(x, value) {
   x <- mapply(`home_starts<-`, x = x, value = c(value, value, !value, !value))
-  methods::new("Event", x)
+  x <- methods::new("Event", x)
+  return(x)
 })
