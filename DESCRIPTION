@@ -17,18 +17,21 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports: 
+    combinat,
     methods,
     shiny
 Collate: 
     'app.R'
-    'calc_score.R'
     'gymnast.R'
     'routine.R'
     'pairing.R'
     'event.R'
     'event_app.R'
+    'events.R'
     'home_starts.R'
+    'minimax.R'
     'pairing_app.R'
     'routine_app.R'
+    'score.R'
     'scorehelper-package.R'
 VignetteBuilder: knitr

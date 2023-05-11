@@ -1,3 +1,6 @@
+#' @include pairing.R
+#' @include event.R
+
 # The calculation is based on
 # https://www.deutsche-turnliga.de/dtl/wissen/regeln.html
 
@@ -37,6 +40,18 @@ calc_score <- function(home = 0, guest = 0) {
 #' @export
 setGeneric("score", function(x, ...) standardGeneric("score"))
 
+#' Calculate the score result of a pairing
+#' @param x An object to calculate the score from
+methods::setMethod("score", "Pairing", function(x) {
+  calc_score(home = x@home@endvalue, guest = x@guest@endvalue)
+})
+
+#' Calculate the score result of an event
+#' @param x An object to calculate the score from
+methods::setMethod("score", "Event", function(x) {
+  Reduce(`+`, lapply(x, score))
+})
+
 #' Rate the score results
 #'
 #' @param x An object to calculate the score_diff from
@@ -44,3 +59,16 @@ setGeneric("score", function(x, ...) standardGeneric("score"))
 #' @rdname score_diff
 #' @export
 setGeneric("score_diff", function(x, ...) standardGeneric("score_diff"))
+
+#' Calculate the score result of a pairing
+#' @param x An object to calculate the score from
+methods::setMethod("score_diff", "Pairing", function(x) {
+  s <- score(x)
+  return(s[1] - s[2])
+})
+
+#' Rate the score result of an event
+#' @param x An object to rate the score
+methods::setMethod("score_diff", "Event", function(x) {
+  Reduce(`+`, lapply(x, score_diff))
+})

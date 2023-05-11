@@ -36,18 +36,6 @@ methods::setMethod("as.data.frame", "Event", function(x) {
   )
 })
 
-#' Calculate the score result of an event
-#' @param x An object to calculate the score from
-methods::setMethod("score", "Event", function(x) {
-  Reduce(`+`, lapply(x, score))
-})
-
-#' Rate the score result of an event
-#' @param x An object to rate the score
-methods::setMethod("score_diff", "Event", function(x) {
-  Reduce(`+`, lapply(x, score_diff))
-})
-
 team_routines <- function(event, team = "home") {
   stopifnot(team %in% c("home", "guest"))
   routines <- lapply(event, methods::slot, name = team)
@@ -102,5 +90,5 @@ methods::setMethod(
 permutations <- function(event) {
   orders <- combinat::permn(1:4)
   events <- lapply(orders, reorder, x = event)
-  new("Events", events)
+  methods::new("Events", events)
 }

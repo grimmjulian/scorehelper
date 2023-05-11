@@ -19,19 +19,6 @@ methods::setClass(
   )
 )
 
-#' Calculate the score result of a pairing
-#' @param x An object to calculate the score from
-methods::setMethod("score", "Pairing", function(x) {
-  calc_score(home = x@home@endvalue, guest = x@guest@endvalue)
-})
-
-#' Calculate the score result of a pairing
-#' @param x An object to calculate the score from
-methods::setMethod("score_diff", "Pairing", function(x) {
-  s <- score(x)
-  return(s[1] - s[2])
-})
-
 methods::setMethod("as.data.frame", "Pairing", function(x) {
   home <- as.data.frame(x@home)
   guest <- as.data.frame(x@guest)
