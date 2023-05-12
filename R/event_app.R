@@ -1,13 +1,34 @@
-eventScoreUI <- function(id) {
-  shiny::fluidRow(
-    shiny::column(3, ""),
-    shiny::column(2, "Summe"),
-    shiny::column(1, scoreUI(shiny::NS(id, "score_home"))),
-    shiny::column(3, ""),
-    shiny::column(2, "Summe"),
-    shiny::column(1, scoreUI(shiny::NS(id, "score_guest")))
+#' @include debug_app.R
+
+teamScoreUI <- function(id) {
+  shiny::tagList(
+    shiny::fluidRow(
+      shiny::column(6, ""),
+      shiny::column(4, "Summe"),
+      shiny::column(2, scoreUI(id))
+    )
   )
 }
+
+eventScoreUI <- function(id) {
+  shiny::tagList(
+    shiny::fluidRow(
+      shiny::column(6, teamScoreUI(shiny::NS(id, "home"))),
+      shiny::column(6, teamScoreUI(shiny::NS(id, "guest")))
+    )
+  )
+}
+
+eventScoreServer <- function(id, event = new("Event")) {
+  shiny::moduleServer(id, function(input, output, session) {
+    s <- shiny::reactive(score(event))
+    output$home <- shiny::renderText(s()[1])
+    output$guest <- shiny::renderText(s()[2])
+    return(s)
+  })
+}
+
+eventScoreApp <- debugApp(eventScoreUI, eventScoreServer)
 
 eventPairingsUI <- function(id) {
   shiny::tagList(
@@ -18,12 +39,11 @@ eventPairingsUI <- function(id) {
   )
 }
 
-eventResultUI <- function(id, home_starts = TRUE) {
+eventResultUI <- function(id) {
   shiny::tagList(
     pairingHeaderUI(),
     eventPairingsUI(id),
-    eventScoreUI(id),
-    shiny::checkboxInput(shiny::NS(id, "home_starts"), "Heim beginnt", home_starts)
+    eventScoreUI(shiny::NS(id, "score")),
   )
 }
 
@@ -32,16 +52,16 @@ eventResultServer <- function(id) {
     event <- shiny::reactive(
       Event.pairings(
         list(
-          pairingResultServer("first", input$home_starts)(),
-          pairingResultServer("second", input$home_starts)(),
-          pairingResultServer("third", !input$home_starts)(),
-          pairingResultServer("fourth", !input$home_starts)()
+          pairingResultServer("first")(),
+          pairingResultServer("second")(),
+          pairingResultServer("third")(),
+          pairingResultServer("fourth")()
         )
       )
     )
-    s <- shiny::reactive(score(event()))
-    output$score_home <- shiny::renderText(s()[1])
-    output$score_guest <- shiny::renderText(s()[2])
+    eventScoreServer("score", event())
     return(event)
   })
 }
+
+eventResultApp <- debugApp(eventResultUI, eventResultServer)

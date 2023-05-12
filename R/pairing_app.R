@@ -2,15 +2,21 @@ scoreUI <- function(id) {
   shiny::textOutput(id)
 }
 
+pairingTeamHeaderUI <- function() {
+  shiny::tagList(
+    shiny::fluidRow(
+      shiny::column(2, ""),
+      shiny::column(8, routineHeaderUI()),
+      shiny::column(2, "Sc")
+    )
+  )
+}
+
 pairingHeaderUI <- function() {
   shiny::tagList(
     shiny::fluidRow(
-      shiny::column(1, ""),
-      shiny::column(4, routineHeaderUI()),
-      shiny::column(1, "Sc"),
-      shiny::column(1, ""),
-      shiny::column(4, routineHeaderUI()),
-      shiny::column(1, "Sc")
+      pairingTeamHeaderUI(),
+      pairingTeamHeaderUI()
     )
   )
 }
@@ -29,6 +35,16 @@ beginsServer <- function(id, starts) {
   })
 }
 
+pairingTeamResultUI <- function(id) {
+  shiny::tagList(
+    shiny::fluidRow(
+      shiny::column(1, beginsUI(shiny::NS(id, "begins"))),
+      shiny::column(4, routineResultUI(shiny::NS(id, "routine"))),
+      shiny::column(1, scoreUI(shiny::NS(id, "score"))),
+    )
+  )
+}
+
 pairingResultUI <- function(id) {
   shiny::tagList(
     shiny::fluidRow(
@@ -42,16 +58,18 @@ pairingResultUI <- function(id) {
   )
 }
 
-pairingResultServer <- function(id, home_starts = TRUE) {
+pairingResultServer <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
     routine_home <- routineResultServer("home")
     routine_guest <- routineResultServer("guest")
-    pairing <- shiny::reactive(methods::new("Pairing", home = routine_home(), guest = routine_guest(), home_starts = home_starts))
+    pairing <- shiny::reactive(methods::new("Pairing", home = routine_home(), guest = routine_guest()))
     s <- shiny::reactive(score(pairing()))
     output$score_home <- shiny::renderText(s()[1])
     output$score_guest <- shiny::renderText(s()[2])
-    beginsServer("home_starts", home_starts)
-    beginsServer("guest_starts", !home_starts)
+    beginsServer("home_starts", home_starts(pairing()))
+    beginsServer("guest_starts", !home_starts(pairing()))
     return(pairing)
   })
 }
+
+pairingResultApp <- debugApp(pairingResultUI, pairingResultServer)
