@@ -1,14 +1,18 @@
-app <- function(...) {
-  ui <- shiny::fluidPage(
+appUI <- function() {
+  shiny::fluidPage(
     shiny::titlePanel(
       "Scorehelper by Julian"
     ),
     eventResultUI("event")
   )
+}
 
-  server <- function(input, output, session) {
-    eventResultServer("event")
-  }
+appServer <- function(input, output, session) {
+  eventResultServer("event")
+}
 
+app <- function(...) {
+  ui <- appUI()
+  server <- appServer
   shiny::shinyApp(ui, server)
 }
