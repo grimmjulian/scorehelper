@@ -29,6 +29,7 @@ test_that("Creation of event with only one pairing works", {
   r1 <- new("Routine", endvalue = 10)
   p <- new("Pairing", home = r1)
   event <- Event.pairings(list(p))
+  home_starts(event) <- FALSE
   expect_snapshot(as.data.frame(event))
 })
 

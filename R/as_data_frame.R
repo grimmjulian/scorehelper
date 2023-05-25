@@ -13,17 +13,14 @@ methods::setMethod("as.data.frame", "Pairing", function(x) {
   home <- as.data.frame(x@home)
   guest <- as.data.frame(x@guest)
   s <- score(x)
-  df <- cbind(home, score = s[1], guest, score = s[2])
+  df <- cbind(home, score = s[1], guest, score = s[2], home_starts = home_starts(x))
   colnames(df)[1:4] <- paste0(colnames(df)[1:4], "_home")
   colnames(df)[5:8] <- paste0(colnames(df)[5:8], "_guest")
   df
 })
 
 methods::setMethod("as.data.frame", "Event", function(x) {
-  rbind(
-    as.data.frame(x[[1]]),
-    as.data.frame(x[[2]]),
-    as.data.frame(x[[3]]),
-    as.data.frame(x[[4]])
-  )
+  pairing_data <- do.call(rbind, lapply(x, as.data.frame))
+  pairing_data <- cbind(order = 1:4, pairing_data)
+  return(pairing_data)
 })
