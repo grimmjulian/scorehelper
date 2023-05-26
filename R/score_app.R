@@ -19,7 +19,7 @@ scoreApp <- function(pairing = new("Pairing")) {
     scoreUI("x", "guest")
   )
   server <- function(input, output, session) {
-    pairing <- new("Pairing", home = new("Routine", endvalue = 10))
+    pairing <- methods::new("Pairing", home = new("Routine", endvalue = 10))
     scoreServer("x", pairing)
   }
 

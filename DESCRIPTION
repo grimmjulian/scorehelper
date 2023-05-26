@@ -27,6 +27,7 @@ Collate:
     'pairing.R'
     'event.R'
     'as_data_frame.R'
+    'begins_app.R'
     'debug_app.R'
     'event_app.R'
     'events.R'
@@ -36,6 +37,7 @@ Collate:
     'pairing_app.R'
     'routine_app.R'
     'score.R'
+    'score_app.R'
     'scorehelper-package.R'
     'value_app.R'
 VignetteBuilder: knitr
