@@ -4,13 +4,13 @@ test_that("prototype pairing works", {
 
 test_that("score points get calculated correctly", {
   pairing <- new("Pairing")
-  expect_equal(score(pairing), c(0, 0))
+  expect_equal(score(pairing), c(home = 0, guest = 0))
   routine <- new("Routine", endvalue = 2)
   pairing@home <- routine
-  expect_equal(score(pairing), c(4, 0))
+  expect_equal(score(pairing), c(home = 4, guest = 0))
   routine2 <- new("Routine", endvalue = 2.5)
   pairing@guest <- routine2
-  expect_equal(score(pairing), c(0, 2))
+  expect_equal(score(pairing), c(home = 0, guest = 2))
 })
 
 test_that("as.data.frame works for pairing", {

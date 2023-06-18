@@ -26,9 +26,9 @@ calc_score <- function(home = 0, guest = 0) {
   }
 
   if (home >= guest) {
-    return(c(score, 0))
+    return(c(home = score, guest = 0))
   } else {
-    return(c(0, score))
+    return(c(home = 0, guest = score))
   }
 }
 
@@ -63,7 +63,7 @@ setGeneric("score_diff", function(x, ...) standardGeneric("score_diff"))
 #' Calculate the score result of a pairing
 #' @param x An object to calculate the score from
 methods::setMethod("score_diff", "Pairing", function(x) {
-  s <- score(x)
+  s <- unname(score(x))
   return(s[1] - s[2])
 })
 

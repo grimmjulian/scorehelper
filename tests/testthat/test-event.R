@@ -7,7 +7,7 @@ test_that("as.data.frame works for event", {
 })
 
 test_that("scoring for an event works", {
-  expect_equal(score(new("Event")), c(0, 0))
+  expect_equal(score(new("Event")), c(home = 0, guest = 0))
 })
 
 test_that("score_diff of an event works", {

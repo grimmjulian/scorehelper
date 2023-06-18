@@ -16,6 +16,7 @@ methods::setMethod("as.data.frame", "Pairing", function(x) {
   df <- cbind(home, score = s[1], guest, score = s[2], home_starts = home_starts(x))
   colnames(df)[1:4] <- paste0(colnames(df)[1:4], "_home")
   colnames(df)[5:8] <- paste0(colnames(df)[5:8], "_guest")
+  rownames(df) <- NULL
   df
 })
 

@@ -1,6 +1,6 @@
-scoreUI <- function(id, team) {
-  stopifnot(team %in% c("home", "guest"))
+scoreUI <- function(id, team = "home") {
   shiny::tagList(
+    # shiny::textOutput(shiny::NS(id, team)),
     shiny::textOutput(shiny::NS(id, team))
   )
 }
@@ -15,7 +15,7 @@ scoreServer <- function(id, pairing) {
 
 scoreApp <- function(pairing = new("Pairing")) {
   ui <- shiny::fluidPage(
-    scoreUI("x", "home"),
+    scoreUI("x"),
     scoreUI("x", "guest")
   )
   server <- function(input, output, session) {
