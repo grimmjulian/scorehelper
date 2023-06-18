@@ -3,12 +3,8 @@ beginsUI <- function(id) {
 }
 
 beginsServer <- function(id, pairing) {
-  starts <- home_starts(pairing)
   shiny::moduleServer(id, function(input, output, session) {
-    if (starts) {
-      output$indicator_begins <- shiny::renderText("X")
-    } else {
-      output$indicator_begins <- shiny::renderText("O")
-    }
+    starts <- shiny::reactive(home_starts(pairing))
+    output$indicator_begins <- shiny::renderText(starts())
   })
 }
