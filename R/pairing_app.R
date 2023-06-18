@@ -3,6 +3,7 @@ pairingResultUI <- function(id) {
     shiny::fluidRow(
       shiny::column(1, beginsUI(shiny::NS(id, "starts"))),
       shiny::column(4, routineResultUI(shiny::NS(id, "home"))),
+      shiny::column(1, scoreUI(shiny::NS(id, "score"))),
       shiny::column(4, routineResultUI(shiny::NS(id, "guest"))),
     )
   )
@@ -14,6 +15,9 @@ pairingResultServer <- function(id) {
     guest <- routineResultServer("guest")
     pairing <- shiny::reactive(methods::new("Pairing", home = home(), guest = guest()))
     beginsServer("starts", pairing())
+    shiny::observeEvent(pairing(), {
+      scoreServer("score", pairing())
+    })
     return(pairing)
   })
 }
