@@ -1,8 +1,7 @@
-scoreUI <- function(id) {
+scoreUI <- function(id, team = "home") {
+  stopifnot(team %in% c("home", "guest"))
   shiny::tagList(
-    shiny::textOutput(shiny::NS(id, "home")),
-    " - ",
-    shiny::textOutput(shiny::NS(id, "guest"))
+    shiny::textOutput(shiny::NS(id, team)) 
   )
 }
 
