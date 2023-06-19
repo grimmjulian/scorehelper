@@ -1,11 +1,11 @@
-gymnastNameUI <- function(id) {
+gymnastNameInputUI <- function(id) {
   shiny::textInput(
     shiny::NS(id, "gymnastname"),
     label = ""
   )
 }
 
-gymnastNameServer <- function(id) {
+gymnastNameInputServer <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
     gymnast <- shiny::reactive(methods::new("Gymnast",
       name = input$gymnastname
@@ -14,4 +14,4 @@ gymnastNameServer <- function(id) {
   })
 }
 
-gymnastNameApp <- debugApp(gymnastNameUI, gymnastNameServer)
+gymnastNameInputApp <- debugApp(gymnastNameInputUI, gymnastNameInputServer)

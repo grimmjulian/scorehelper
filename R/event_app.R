@@ -41,7 +41,6 @@ eventPairingsUI <- function(id) {
 
 eventResultUI <- function(id) {
   shiny::tagList(
-    pairingHeaderUI(),
     eventPairingsUI(id),
     eventScoreUI(shiny::NS(id, "score")),
   )

@@ -1,4 +1,4 @@
-valueUI <- function(id, max, step) {
+valueInputUI <- function(id, max, step) {
   shiny::tagList(
     shiny::numericInput(
       shiny::NS(id, "x"),
@@ -11,12 +11,12 @@ valueUI <- function(id, max, step) {
   )
 }
 
-dvalueUI <- function(id) {
-  valueUI(id, max = 10, step = 0.1)
+dvalueInputUI <- function(id) {
+  valueInputUI(id, max = 10, step = 0.1)
 }
 
-endvalueUI <- function(id) {
-  valueUI(id, max = 20, step = 0.05)
+endvalueInputUI <- function(id) {
+  valueInputUI(id, max = 20, step = 0.05)
 }
 
 controll_numericInput <- function(input, id, session) {
@@ -29,7 +29,8 @@ controll_numericInput <- function(input, id, session) {
     ignoreInit = TRUE
   )
 }
-valueServer <- function(id) {
+
+valueInputServer <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
     controll_numericInput(input, "x", session)
     value <- shiny::reactive(input$x)
@@ -37,4 +38,4 @@ valueServer <- function(id) {
   })
 }
 
-valueApp <- debugApp(dvalueUI, valueServer)
+valueInputApp <- debugApp(dvalueInputUI, valueInputServer)

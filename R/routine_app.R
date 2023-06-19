@@ -12,22 +12,22 @@ routineHeaderUI <- function() {
   routineTableUI("Turner", "D-Note", "Endwert")
 }
 
-routineResultUI <- function(id) {
-  gymnastname <- gymnastNameUI(shiny::NS(id, "gymnastname"))
-  dvalue <- dvalueUI(shiny::NS(id, "dvalue"))
-  endvalue <- endvalueUI(shiny::NS(id, "endvalue"))
+routineInputUI <- function(id) {
+  gymnastname <- gymnastNameInputUI(shiny::NS(id, "gymnastname"))
+  dvalue <- dvalueInputUI(shiny::NS(id, "dvalue"))
+  endvalue <- endvalueInputUI(shiny::NS(id, "endvalue"))
   routineTableUI(gymnastname, dvalue, endvalue)
 }
 
-routineResultServer <- function(id) {
+routineInputServer <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
     routine <- shiny::reactive(methods::new("Routine",
-      gymnast = gymnastNameServer("gymnastname")(),
-      dvalue = valueServer("dvalue")(),
-      endvalue = valueServer("endvalue")()
+      gymnast = gymnastNameInputServer("gymnastname")(),
+      dvalue = valueInputServer("dvalue")(),
+      endvalue = valueInputServer("endvalue")()
     ))
     return(routine)
   })
 }
 
-routineResultApp <- debugApp(routineResultUI, routineResultServer)
+routineResultApp <- debugApp(routineInputUI, routineInputServer)
