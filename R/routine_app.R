@@ -1,4 +1,4 @@
-routineTableUI <- function(gymnast, dvalue, endvalue) {
+routineLayout <- function(gymnast, dvalue, endvalue) {
   shiny::tagList(
     shiny::fluidRow(
       shiny::column(6, gymnast),
@@ -8,15 +8,15 @@ routineTableUI <- function(gymnast, dvalue, endvalue) {
   )
 }
 
-routineHeaderUI <- function() {
-  routineTableUI("Turner", "D-Note", "Endwert")
+routineHeader <- function() {
+  routineLayout("Turner", "D-Note", "Endwert")
 }
 
 routineInputUI <- function(id) {
   gymnastname <- gymnastNameInputUI(shiny::NS(id, "gymnastname"))
   dvalue <- dvalueInputUI(shiny::NS(id, "dvalue"))
   endvalue <- endvalueInputUI(shiny::NS(id, "endvalue"))
-  routineTableUI(gymnastname, dvalue, endvalue)
+  routineLayout(gymnastname, dvalue, endvalue)
 }
 
 routineInputServer <- function(id) {

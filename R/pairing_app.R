@@ -1,12 +1,22 @@
-pairingInputUI <- function(id) {
+pairingLayout <- function(...) {
   shiny::tagList(
     shiny::fluidRow(
-      shiny::column(1, beginsUI(shiny::NS(id, "starts"))),
-      shiny::column(4, routineInputUI(shiny::NS(id, "home"))),
-      shiny::column(1, scoreUI(shiny::NS(id, "score"), "home")),
-      shiny::column(4, routineInputUI(shiny::NS(id, "guest"))),
-      shiny::column(1, scoreUI(shiny::NS(id, "score"), "guest"))
+      shiny::column(1, ...elt(1)),
+      shiny::column(4, ...elt(2)),
+      shiny::column(1, ...elt(3)),
+      shiny::column(4, ...elt(4)),
+      shiny::column(1, ...elt(5))
     )
+  )
+}
+
+pairingInputUI <- function(id) {
+  pairingLayout(
+    beginsUI(shiny::NS(id, "starts")),
+    routineInputUI(shiny::NS(id, "home")),
+    scoreUI(shiny::NS(id, "score"), "home"),
+    routineInputUI(shiny::NS(id, "guest")),
+    scoreUI(shiny::NS(id, "score"), "guest")
   )
 }
 
