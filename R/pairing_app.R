@@ -20,11 +20,15 @@ pairingInputUI <- function(id) {
   )
 }
 
-pairingInputServer <- function(id) {
+pairingInputServer <- function(id, value = methods::new("Pairing")) {
   shiny::moduleServer(id, function(input, output, session) {
     home <- routineInputServer("home")
     guest <- routineInputServer("guest")
-    pairing <- shiny::reactive(methods::new("Pairing", home = home(), guest = guest()))
+    pairing <- shiny::reactive(methods::new("Pairing",
+      home = home(),
+      guest = guest(),
+      home_starts = home_starts(value)
+    ))
     shiny::observeEvent(pairing(), {
       beginsServer("starts", pairing())
       scoreServer("score", pairing())

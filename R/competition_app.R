@@ -15,13 +15,13 @@ competitionInputUI <- function(id) {
   )
 }
 
-competitionInputServer <- function(id) {
+competitionInputServer <- function(id, value = Competition()) {
   shiny::moduleServer(id, function(input, output, session) {
-    eventServer("floor")
-    eventServer("pommel_horse")
-    eventServer("still_rings")
-    eventServer("vault")
-    eventServer("parallel_bars")
-    eventServer("horizontal_bar")
+    eventServer("floor", value = value@floor)
+    eventServer("pommel_horse", value = value@pommel_horse)
+    eventServer("still_rings", value = value@still_rings)
+    eventServer("vault", value = value@vault)
+    eventServer("parallel_bars", value = value@parallel_bars)
+    eventServer("horizontal_bar", value = value@horizontal_bar)
   })
 }

@@ -9,12 +9,12 @@ eventInputUI <- function(id) {
   )
 }
 
-eventInputServer <- function(id) {
+eventInputServer <- function(id, value = methods::new("Event")) {
   shiny::moduleServer(id, function(input, output, session) {
-    pairingInputServer("first")
-    pairingInputServer("second")
-    pairingInputServer("third")
-    pairingInputServer("fourth")
+    pairingInputServer("first", value = value[[1]])
+    pairingInputServer("second", value = value[[2]])
+    pairingInputServer("third", value = value[[3]])
+    pairingInputServer("fourth", value = value[[4]])
   })
 }
 
@@ -25,8 +25,8 @@ eventUI <- function(id, event = "event") {
   )
 }
 
-eventServer <- function(id) {
+eventServer <- function(id, value = methods::new("Event")) {
   shiny::moduleServer(id, function(input, output, session) {
-    eventInputServer("input")
+    eventInputServer("input", value = value)
   })
 }
