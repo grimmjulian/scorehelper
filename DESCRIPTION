@@ -28,9 +28,11 @@ Collate:
     'event.R'
     'as_data_frame.R'
     'begins_app.R'
+    'events.R'
+    'competition.R'
+    'competition_app.R'
     'debug_app.R'
     'event_app.R'
-    'events.R'
     'gymnast_app.R'
     'home_starts.R'
     'minimax.R'
@@ -41,3 +43,6 @@ Collate:
     'scorehelper-package.R'
     'value_app.R'
 VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)
+LazyData: true

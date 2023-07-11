@@ -6,3 +6,5 @@
 ^data-raw$
 ^app\.R$
 ^inst$
+^doc$
+^Meta$

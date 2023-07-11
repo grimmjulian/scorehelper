@@ -25,3 +25,16 @@ methods::setMethod("home_starts<-", "Event", function(x, value) {
   x <- methods::new("Event", x)
   return(x)
 })
+
+#' Calculate the score result of a pairing
+#' @param x An object to calculate the score from
+methods::setMethod("home_starts", "Competition", function(x) home_starts(x@floor))
+methods::setMethod("home_starts<-", "Competition", function(x, value) {
+  home_starts(x@floor) <- value
+  home_starts(x@pommel_horse) <- !value
+  home_starts(x@still_rings) <- value
+  home_starts(x@vault) <- !value
+  home_starts(x@parallel_bars) <- value
+  home_starts(x@horizontal_bar) <- !value
+  return(x)
+})

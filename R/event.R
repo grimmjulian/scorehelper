@@ -22,7 +22,9 @@ methods::setClass(
 methods::setValidity("Event", function(object) {
   if (home_starts(object[[1]]) == home_starts(object[[3]])) {
     "home_starts for pairings is not set correctly."
-  } else {
+  } else if (home_starts(object[[1]]) == home_starts(object[[4]])) {
+    "home_starts for pairings is not set correctly."
+  } else if (!home_starts(object[[1]]) == home_starts(object[[2]])) {
     TRUE
   }
 })
@@ -36,7 +38,7 @@ Event.pairings <- function(pairings) {
   return(event)
 }
 
-Event.routines <- function(home, guest, home_starts = TRUE) {
+Event.routines <- function(home = list(new("Routine")), guest = list(new("Routine")), home_starts = TRUE) {
   stopifnot(all(sapply(home, methods::is, class2 = "Routine")))
   stopifnot(all(sapply(guest, methods::is, class2 = "Routine")))
   home_starts <- c(home_starts, home_starts, !home_starts, !home_starts)
