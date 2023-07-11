@@ -18,15 +18,32 @@ eventInputServer <- function(id, value = methods::new("Event")) {
   })
 }
 
+eventResultUI <- function(id) {
+  pairingLayout("",
+  routineResultUI(shiny::NS(id, "home")),
+  "SCORE HOME",
+  routineResultUI(shiny::NS(id, "guest")),
+  "SCORE GUEST")
+}
+
+eventResultServer <- function(id, value = methods::new("Event")) {
+  shiny::moduleServer(id, function(input, output, session) {
+
+  })
+}
+
+
 eventUI <- function(id, event = "event") {
   shiny::tagList(
     htmltools::h3(event),
-    eventInputUI(shiny::NS(id, "input"))
+    eventInputUI(shiny::NS(id, "input")),
+    eventResultUI(shiny::NS(id, "result"))
   )
 }
 
 eventServer <- function(id, value = methods::new("Event")) {
   shiny::moduleServer(id, function(input, output, session) {
     eventInputServer("input", value = value)
+    eventResultServer("result", value = value)
   })
 }
