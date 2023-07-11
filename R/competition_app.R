@@ -6,23 +6,22 @@ competitionInputUI <- function(id) {
     htmltools::br(),
     "Geräte Punkte Heim : Geräte Punkte Gast",
     htmltools::br(),
-    htmltools::h3("Boden"),
-    "Ergebnis",
-    htmltools::h3("Seitpferd"),
-    "Ergebnis",
-    htmltools::h3("Ringe"),
-    "Ergebnis",
-    htmltools::h3("Sprung"),
-    "Ergebnis",
-    htmltools::h3("Barren"),
-    "Ergebnis",
-    htmltools::h3("Reck"),
-    "Ergebnis",
+    eventUI(shiny::NS(id, "floor"), "Boden"),
+    eventUI(shiny::NS(id, "pommel_horse"), "Seitpferd"),
+    eventUI(shiny::NS(id, "still_rings"), "Ringe"),
+    eventUI(shiny::NS(id, "vault"), "Sprung"),
+    eventUI(shiny::NS(id, "parallel_bars"), "Barren"),
+    eventUI(shiny::NS(id, "horizontal_bar"), "Reck"),
   )
 }
 
 competitionInputServer <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
-
+    eventServer("floor")
+    eventServer("pommel_horse")
+    eventServer("still_rings")
+    eventServer("vault")
+    eventServer("parallel_bars")
+    eventServer("horizontal_bar")
   })
 }

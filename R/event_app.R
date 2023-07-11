@@ -1,66 +1,32 @@
 #' @include debug_app.R
 
-teamScoreUI <- function(id) {
+eventInputUI <- function(id) {
   shiny::tagList(
-    shiny::fluidRow(
-      shiny::column(6, ""),
-      shiny::column(4, "Summe"),
-      shiny::column(2, scoreUI(id))
-    )
+    pairingInputUI(shiny::NS(id, "first")),
+    pairingInputUI(shiny::NS(id, "second")),
+    pairingInputUI(shiny::NS(id, "third")),
+    pairingInputUI(shiny::NS(id, "fourth"))
   )
 }
 
-eventScoreUI <- function(id) {
-  shiny::tagList(
-    shiny::fluidRow(
-      shiny::column(6, teamScoreUI(shiny::NS(id, "home"))),
-      shiny::column(6, teamScoreUI(shiny::NS(id, "guest")))
-    )
-  )
-}
-
-eventScoreServer <- function(id, event = new("Event")) {
+eventInputServer <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
-    s <- shiny::reactive(score(event))
-    output$home <- shiny::renderText(s()[1])
-    output$guest <- shiny::renderText(s()[2])
-    return(s)
+    pairingInputServer("first")
+    pairingInputServer("second")
+    pairingInputServer("third")
+    pairingInputServer("fourth")
   })
 }
 
-eventScoreApp <- debugApp(eventScoreUI, eventScoreServer)
-
-eventPairingsUI <- function(id) {
+eventUI <- function(id, event = "event") {
   shiny::tagList(
-    pairingResultUI(shiny::NS(id, "first")),
-    pairingResultUI(shiny::NS(id, "second")),
-    pairingResultUI(shiny::NS(id, "third")),
-    pairingResultUI(shiny::NS(id, "fourth"))
+    htmltools::h3(event),
+    eventInputUI(shiny::NS(id, "input"))
   )
 }
 
-eventResultUI <- function(id) {
-  shiny::tagList(
-    eventPairingsUI(id),
-    eventScoreUI(shiny::NS(id, "score")),
-  )
-}
-
-eventResultServer <- function(id) {
+eventServer <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
-    event <- shiny::reactive(
-      Event.pairings(
-        list(
-          pairingResultServer("first")(),
-          pairingResultServer("second")(),
-          pairingResultServer("third")(),
-          pairingResultServer("fourth")()
-        )
-      )
-    )
-    eventScoreServer("score", event())
-    return(event)
+    eventInputServer("input")
   })
 }
-
-eventResultApp <- debugApp(eventResultUI, eventResultServer)
