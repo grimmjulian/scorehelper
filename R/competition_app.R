@@ -1,11 +1,5 @@
 competitionInputUI <- function(id) {
   shiny::tagList(
-    "Team Info Heim vs. Team Info Gast",
-    htmltools::br(),
-    "Sorce Heim : Score Gast",
-    htmltools::br(),
-    "Geräte Punkte Heim : Geräte Punkte Gast",
-    htmltools::br(),
     eventUI(shiny::NS(id, "floor"), "Boden"),
     eventUI(shiny::NS(id, "pommel_horse"), "Seitpferd"),
     eventUI(shiny::NS(id, "still_rings"), "Ringe"),
@@ -23,5 +17,36 @@ competitionInputServer <- function(id, value = Competition()) {
     eventServer("vault", value = value@vault)
     eventServer("parallel_bars", value = value@parallel_bars)
     eventServer("horizontal_bar", value = value@horizontal_bar)
+  })
+}
+
+competitionResultUI <- function(id) {
+  shiny::tagList(
+    "Team Info Heim vs. Team Info Gast",
+    htmltools::br(),
+    "Sorce Heim : Score Gast",
+    htmltools::br(),
+    "Geräte Punkte Heim : Geräte Punkte Gast",
+    htmltools::br()
+  )
+}
+
+competitionResultServer <- function(id) {
+  shiny::moduleServer(id, function(input, output, session) {
+
+  })
+}
+
+competitionUI <- function(id) {
+  shiny::tagList(
+    competitionResultUI(shiny::NS(id, "result")),
+    competitionInputUI(shiny::NS(id, "input"))
+  )
+}
+
+competitionServer <- function(id, value = Competition()) {
+  shiny::moduleServer(id, function(input, output, session) {
+    competitionResultServer("result")
+    competitionInputServer("input", value = value)
   })
 }

@@ -4,7 +4,7 @@ appUI <- function() {
       "Scorehelper by Julian"
     ),
     shiny::tabsetPanel(
-      shiny::tabPanel("competition", competitionInputUI("comp")),
+      shiny::tabPanel("competition", competitionUI("comp")),
       shiny::tabPanel("teams", "Hier kommen Daten zu einer Mannschaft bzw Turner hin.")
     )
   )
@@ -12,7 +12,7 @@ appUI <- function() {
 
 appServer <- function(input, output, session) {
   # eventResultServer("event")
-  competitionInputServer("comp")
+  competitionServer("comp")
 }
 
 app <- function(...) {
