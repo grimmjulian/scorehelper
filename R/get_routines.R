@@ -12,7 +12,7 @@ setGeneric("get_routines", function(x, team) standardGeneric("get_routines"))
 #' @param team Which team the routines should be extracted for
 methods::setMethod("get_routines", "Pairing", function(x, team) {
   stopifnot(team %in% c("home", "guest"))
-  return(slot(x, team))
+  return(methods::slot(x, team))
 })
 
 

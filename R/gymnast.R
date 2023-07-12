@@ -1,7 +1,6 @@
 #' An S4 class that stores a Gymnast
 #' @slot id Numeric ID as on homepage
 #' @slot name Name of the gymnast
-#' @slot birthday date of birth
 #' @slot nationality Nationality of the gymnast
 #' @export
 methods::setClass(

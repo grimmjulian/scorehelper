@@ -26,7 +26,7 @@ competitionResultUI <- function(id) {
     htmltools::br(),
     "Sorce Heim : Score Gast",
     htmltools::br(),
-    "Geräte Punkte Heim : Geräte Punkte Gast",
+    "Geraete Punkte Heim : Geraete Punkte Gast",
     htmltools::br()
   )
 }

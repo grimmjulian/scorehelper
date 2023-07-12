@@ -14,8 +14,6 @@ An S4 class that stores a Gymnast
 
 \item{\code{name}}{Name of the gymnast}
 
-\item{\code{birthday}}{date of birth}
-
 \item{\code{nationality}}{Nationality of the gymnast}
 }}
 
