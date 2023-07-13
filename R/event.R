@@ -1,13 +1,5 @@
 #' @include pairing.R
 
-#' An S4 class that stores all pairings for an event.
-#'
-#' @slot first The first pairing
-#' @slot second The second pairing
-#' @slot third The third pairing
-#' @slot fourth The fourth pairing
-#' @export
-
 methods::setClass(
   "Event",
   contains = "list",

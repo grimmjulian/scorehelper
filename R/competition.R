@@ -1,8 +1,5 @@
 #' @include events.R
 
-#' An S4 class that stores a list of events.
-#' @export
-
 methods::setClass(
   "Competition",
   slots = c(

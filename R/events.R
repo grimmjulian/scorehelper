@@ -1,7 +1,5 @@
 #' @include event.R
 
-#' An S4 class that stores a list of events.
-#' @export
 
 methods::setClass(
   "Events",
@@ -25,6 +23,9 @@ methods::setMethod(
   }
 )
 
+#' Get the Event with the hightest Score difference for the home team
+#'
+#' @param x Events object to choose from
 methods::setMethod(
   "max",
   "Events",
@@ -34,6 +35,9 @@ methods::setMethod(
   }
 )
 
+#' Get the Event with the lowest Score difference for the home team
+#'
+#' @param x Events object to choose from
 methods::setMethod(
   "min",
   "Events",

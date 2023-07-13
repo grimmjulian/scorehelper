@@ -1,24 +1,20 @@
-#' @include event.R
-
-#' Set the starting team in an object
+#' Is home starting in this object?
 #'
-#' @param x An object to set the starting team to
-#' @param home_starts Boolean if home starts'
-#' @rdname set_home_starts
-#' @export
+#' @param x The object to check
 setGeneric("home_starts", function(x) standardGeneric("home_starts"))
+
+#' Set the starting team of the object
+#'
+#' @param x The object to set
+#' @param value The value that should be set to (boolean)
 setGeneric("home_starts<-", function(x, value) standardGeneric("home_starts<-"))
 
-#' Calculate the score result of a pairing
-#' @param x An object to calculate the score from
 methods::setMethod("home_starts", "Pairing", function(x) x@home_starts)
 methods::setMethod("home_starts<-", "Pairing", function(x, value) {
   x@home_starts <- value
   return(x)
 })
 
-#' Calculate the score result of a pairing
-#' @param x An object to calculate the score from
 methods::setMethod("home_starts", "Event", function(x) x[[1]]@home_starts)
 methods::setMethod("home_starts<-", "Event", function(x, value) {
   x <- mapply(`home_starts<-`, x = x, value = c(value, value, !value, !value))
@@ -26,8 +22,6 @@ methods::setMethod("home_starts<-", "Event", function(x, value) {
   return(x)
 })
 
-#' Calculate the score result of a pairing
-#' @param x An object to calculate the score from
 methods::setMethod("home_starts", "Competition", function(x) home_starts(x@floor))
 methods::setMethod("home_starts<-", "Competition", function(x, value) {
   home_starts(x@floor) <- value

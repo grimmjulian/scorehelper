@@ -1,14 +1,8 @@
 #' @include gymnast.R
 
-#' An S4 class that stores a routinge
-#' @slot gymnast A gymnast object
-#' @slot dvalue Numeric dvalue
-#' @slot endvalue Numeric endvalue
-#' @export
-
 methods::setClass(
   "Routine",
-  slots = c(
+  slots = list(
     gymnast = "Gymnast",
     dvalue = "numeric",
     endvalue = "numeric"
