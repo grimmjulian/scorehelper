@@ -52,6 +52,17 @@ methods::setMethod("score", "Event", function(x) {
   Reduce(`+`, lapply(x, score))
 })
 
+#' Calculate the score result of a competition
+#' @param x An object to calculate the score from
+methods::setMethod("score", "Competition", function(x) {
+  score(x@floor) +
+    score(x@pommel_horse) +
+    score(x@still_rings) +
+    score(x@vault) +
+    score(x@parallel_bars) +
+    score(x@horizontal_bar)
+})
+
 #' Rate the score results
 #'
 #' @param x An object to calculate the score_diff from

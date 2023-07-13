@@ -21,3 +21,8 @@ test_that("score points are correct", {
   expect_equal(unname(calc_score(6.05)), c(10, 0))
   expect_equal(unname(calc_score(10)), c(10, 0))
 })
+
+test_that("calculation of the score result of a competition works", {
+  comp <- new("Competition")
+  expect_equal(score(comp), c(home = 0, guest = 0))
+})
