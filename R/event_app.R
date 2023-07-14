@@ -62,5 +62,6 @@ eventServer <- function(id, value = methods::new("Event")) {
     shiny::observeEvent(e(), {
       eventResultServer("result", value = e())
     })
+    return(e)
   })
 }

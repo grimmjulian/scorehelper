@@ -11,12 +11,16 @@ competitionInputUI <- function(id) {
 
 competitionInputServer <- function(id, value = Competition()) {
   shiny::moduleServer(id, function(input, output, session) {
-    eventServer("floor", value = value@floor)
-    eventServer("pommel_horse", value = value@pommel_horse)
-    eventServer("still_rings", value = value@still_rings)
-    eventServer("vault", value = value@vault)
-    eventServer("parallel_bars", value = value@parallel_bars)
-    eventServer("horizontal_bar", value = value@horizontal_bar)
+    comp <- shiny::reactive(methods::new(
+      "Competition",
+      floor = eventServer("floor", value = value@floor)(),
+      pommel_horse = eventServer("pommel_horse", value = value@pommel_horse)(),
+      still_rings = eventServer("still_rings", value = value@still_rings)(),
+      vault = eventServer("vault", value = value@vault)(),
+      parallel_bars = eventServer("parallel_bars", value = value@parallel_bars)(),
+      horizontal_bar = eventServer("horizontal_bar", value = value@horizontal_bar)()
+    ))
+    return(comp)
   })
 }
 
@@ -83,7 +87,9 @@ competitionUI <- function(id) {
 
 competitionServer <- function(id, value = Competition()) {
   shiny::moduleServer(id, function(input, output, session) {
-    competitionResultServer("result", value = value)
-    competitionInputServer("input", value = value)
+    comp <- competitionInputServer("input", value = value)
+    shiny::observeEvent(comp(), {
+      competitionResultServer("result", value = comp())
+    })
   })
 }
