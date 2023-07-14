@@ -30,16 +30,4 @@ routineInputServer <- function(id) {
   })
 }
 
-routineResultUI <- function(id) {
-  gymnast <- "Summe"
-  dvalue <- "dvalue"
-  endvalue <- "endvalue"
-  routineLayout(gymnast, dvalue, endvalue)
-}
-
-routineResultServer <- function(id, value = list(new("Routine"))) {
-  shiny::moduleServer(id, function(input, output, session) {
-  })
-}
-
 routineInputApp <- debugApp(routineInputUI, routineInputServer)

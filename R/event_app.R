@@ -11,27 +11,42 @@ eventInputUI <- function(id) {
 
 eventInputServer <- function(id, value = methods::new("Event")) {
   shiny::moduleServer(id, function(input, output, session) {
-    pairingInputServer("first", value = value[[1]])
-    pairingInputServer("second", value = value[[2]])
-    pairingInputServer("third", value = value[[3]])
-    pairingInputServer("fourth", value = value[[4]])
+    shiny::reactive(Event.pairings(list(
+      pairingInputServer("first", value = value[[1]])(),
+      pairingInputServer("second", value = value[[2]])(),
+      pairingInputServer("third", value = value[[3]])(),
+      pairingInputServer("fourth", value = value[[4]])()
+    )))
   })
 }
 
-eventResultUI <- function(id) {
-  pairingLayout("",
-  routineResultUI(shiny::NS(id, "home")),
-  "SCORE HOME",
-  routineResultUI(shiny::NS(id, "guest")),
-  "SCORE GUEST")
+routineResultUI <- function(id) {
+  gymnast <- "Summe"
+  dvalue <- "dvalue"
+  endvalue <- "endvalue"
+  routineLayout(gymnast, dvalue, endvalue)
+}
+
+routineResultServer <- function(id, value = list(new("Routine"))) {
+  shiny::moduleServer(id, function(input, output, session) {
+  })
+}
+
+eventResultUI <- function(id, value = new("Event")) {
+  pairingLayout(
+    "",
+    routineResultUI(shiny::NS(id, "home")),
+    scoreUI(shiny::NS(id, "score"), "home"),
+    routineResultUI(shiny::NS(id, "guest")),
+    scoreUI(shiny::NS(id, "score"), "guest")
+  )
 }
 
 eventResultServer <- function(id, value = methods::new("Event")) {
   shiny::moduleServer(id, function(input, output, session) {
-
+    scoreServer("score", value)
   })
 }
-
 
 eventUI <- function(id, event = "event") {
   shiny::tagList(
@@ -43,7 +58,9 @@ eventUI <- function(id, event = "event") {
 
 eventServer <- function(id, value = methods::new("Event")) {
   shiny::moduleServer(id, function(input, output, session) {
-    eventInputServer("input", value = value)
-    eventResultServer("result", value = value)
+    e <- eventInputServer("input", value = value)
+    shiny::observeEvent(e(), {
+      eventResultServer("result", value = e())
+    })
   })
 }
