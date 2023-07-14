@@ -20,6 +20,18 @@ competitionInputServer <- function(id, value = Competition()) {
   })
 }
 
+fmt_result <- function(x, FUN) {
+  sprintf("%s : %s", FUN(x)[["home"]], FUN(x)[["guest"]])
+}
+
+fmt_score_result <- function(x) {
+  fmt_result(x, score)
+}
+
+fmt_event_score_result <- function(x) {
+  fmt_result(x, event_score)
+}
+
 competitionScoreResultUI <- function(id) {
   shiny::tagList(
     htmltools::h1(
@@ -30,7 +42,7 @@ competitionScoreResultUI <- function(id) {
 
 competitionScoreResultServer <- function(id, value = new("Competition")) {
   shiny::moduleServer(id, function(input, output, session) {
-    output$result <- shiny::renderText(sprintf("%s : %s", score(value)[["home"]], score(value)[["guest"]]))
+    output$result <- shiny::renderText(fmt_score_result(value))
   })
 }
 
@@ -44,11 +56,7 @@ competitionEventScoreResultUI <- function(id) {
 
 competitionEventScoreResultServer <- function(id, value = new("Competition")) {
   shiny::moduleServer(id, function(input, output, session) {
-    output$result <- shiny::renderText(sprintf(
-      "%s : %s",
-      event_score(value)[["home"]],
-      event_score(value)[["guest"]]
-    ))
+    output$result <- shiny::renderText(fmt_event_score_result(value))
   })
 }
 
