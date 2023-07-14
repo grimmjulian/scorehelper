@@ -20,20 +20,49 @@ competitionInputServer <- function(id, value = Competition()) {
   })
 }
 
-competitionResultUI <- function(id) {
+competitionScoreResultUI <- function(id) {
   shiny::tagList(
-    "Team Info Heim vs. Team Info Gast",
-    htmltools::br(),
-    "Sorce Heim : Score Gast",
-    htmltools::br(),
-    "Geraete Punkte Heim : Geraete Punkte Gast",
-    htmltools::br()
+    htmltools::h1(
+      shiny::textOutput(shiny::NS(id, "result"))
+    )
   )
 }
 
-competitionResultServer <- function(id) {
+competitionScoreResultServer <- function(id, value = new("Competition")) {
   shiny::moduleServer(id, function(input, output, session) {
+    output$result <- shiny::renderText(sprintf("%s : %s", score(value)[["home"]], score(value)[["guest"]]))
+  })
+}
 
+competitionEventScoreResultUI <- function(id) {
+  shiny::tagList(
+    htmltools::h2(
+      shiny::textOutput(shiny::NS(id, "result"))
+    )
+  )
+}
+
+competitionEventScoreResultServer <- function(id, value = new("Competition")) {
+  shiny::moduleServer(id, function(input, output, session) {
+    output$result <- shiny::renderText(sprintf(
+      "%s : %s",
+      event_score(value)[["home"]],
+      event_score(value)[["guest"]]
+    ))
+  })
+}
+
+competitionResultUI <- function(id) {
+  shiny::tagList(
+    competitionScoreResultUI(shiny::NS(id, "score")),
+    competitionEventScoreResultUI(shiny::NS(id, "event_score"))
+  )
+}
+
+competitionResultServer <- function(id, value = new("Competition")) {
+  shiny::moduleServer(id, function(input, output, session) {
+    competitionScoreResultServer("score", value = value)
+    competitionEventScoreResultServer("event_score", value = value)
   })
 }
 
@@ -46,7 +75,7 @@ competitionUI <- function(id) {
 
 competitionServer <- function(id, value = Competition()) {
   shiny::moduleServer(id, function(input, output, session) {
-    competitionResultServer("result")
+    competitionResultServer("result", value = value)
     competitionInputServer("input", value = value)
   })
 }
