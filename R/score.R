@@ -55,12 +55,13 @@ methods::setMethod("score", "Event", function(x) {
 #' Calculate the score result of a competition
 #' @param x An object to calculate the score from
 methods::setMethod("score", "Competition", function(x) {
-  score(x@floor) +
+  s <- score(x@floor) +
     score(x@pommel_horse) +
     score(x@still_rings) +
     score(x@vault) +
     score(x@parallel_bars) +
     score(x@horizontal_bar)
+  return(s)
 })
 
 #' Rate the score results
@@ -82,4 +83,31 @@ methods::setMethod("score_diff", "Pairing", function(x) {
 #' @param x An object to rate the score
 methods::setMethod("score_diff", "Event", function(x) {
   Reduce(`+`, lapply(x, score_diff))
+})
+
+#' Calculate the event score results
+#'
+#' @param x An object to calculate the score from
+#' @param ... Extra named arguments
+#' @rdname score
+#' @export
+setGeneric("event_score", function(x, ...) standardGeneric("event_score"))
+
+#' Calculate the score result of an event
+#' @param x An object to calculate the score from
+methods::setMethod("event_score", "Event", function(x) {
+  score_home <- sign(score_diff(x)) + 1
+  score_guest <- 2 - score_home
+  return(c(home = score_home, guest = score_guest))
+})
+
+#' Calculate the score result of a competition
+#' @param x An object to calculate the score from
+methods::setMethod("event_score", "Competition", function(x) {
+  event_score(x@floor) +
+    event_score(x@pommel_horse) +
+    event_score(x@still_rings) +
+    event_score(x@vault) +
+    event_score(x@parallel_bars) +
+    event_score(x@horizontal_bar)
 })

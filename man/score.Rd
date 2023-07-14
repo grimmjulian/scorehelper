@@ -2,9 +2,12 @@
 % Please edit documentation in R/score.R
 \name{score}
 \alias{score}
+\alias{event_score}
 \title{Calculate the score results}
 \usage{
 score(x, ...)
+
+event_score(x, ...)
 }
 \arguments{
 \item{x}{An object to calculate the score from}
@@ -13,4 +16,6 @@ score(x, ...)
 }
 \description{
 Calculate the score results
+
+Calculate the event score results
 }

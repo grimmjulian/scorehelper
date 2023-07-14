@@ -26,3 +26,26 @@ test_that("calculation of the score result of a competition works", {
   comp <- new("Competition")
   expect_equal(score(comp), c(home = 0, guest = 0))
 })
+
+test_that("calculation of score for events works", {
+  e <- Event.routines(list(methods::new("Routine", endvalue = 3)))
+  expect_equal(score(e), c(home = 20, guest = 0))
+})
+
+test_that("calculation of score_diff works for events", {
+  e <- Event.routines(list(methods::new("Routine", endvalue = 3)))
+  expect_equal(score_diff(e), 20)
+})
+
+test_that("calculation of event_score works for events", {
+  e <- Event.routines(list(methods::new("Routine", endvalue = 3)))
+  expect_equal(event_score(e), c(home = 2, guest = 0))
+})
+
+test_that("calculation of event_score works for competition", {
+  comp <- new("Competition")
+  expect_equal(event_score(comp), c(home = 6, guest = 6))
+  e <- Event.routines(list(methods::new("Routine", endvalue = 3)))
+  comp@floor <- e
+  expect_equal(event_score(comp), c(home = 7, guest = 5))
+})
