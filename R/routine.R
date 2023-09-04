@@ -1,5 +1,6 @@
 #' @include gymnast.R
 
+#' @export
 methods::setClass(
   "Routine",
   slots = list(
@@ -14,6 +15,7 @@ methods::setClass(
   )
 )
 
+#' @export
 methods::setValidity("Routine", function(object) {
   if (length(object@dvalue) > 1) {
     "@dvalue must be of length 1"

@@ -1,5 +1,7 @@
 #' @include pairing.R
 
+#' Event Class
+#' @export
 methods::setClass(
   "Event",
   contains = "list",
@@ -11,6 +13,7 @@ methods::setClass(
   )
 )
 
+#' @export
 methods::setValidity("Event", function(object) {
   if (home_starts(object[[1]]) == home_starts(object[[3]])) {
     "home_starts for pairings is not set correctly."

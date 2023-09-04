@@ -1,5 +1,6 @@
 #' @include routine.R
 
+#' @export
 methods::setClass(
   "Pairing",
   slots = c(

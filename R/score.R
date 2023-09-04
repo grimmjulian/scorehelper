@@ -95,6 +95,7 @@ setGeneric("event_score", function(x, ...) standardGeneric("event_score"))
 
 #' Calculate the score result of an event
 #' @param x An object to calculate the score from
+#' @export
 methods::setMethod("event_score", "Event", function(x) {
   score_home <- sign(score_diff(x)) + 1
   score_guest <- 2 - score_home
@@ -103,6 +104,7 @@ methods::setMethod("event_score", "Event", function(x) {
 
 #' Calculate the score result of a competition
 #' @param x An object to calculate the score from
+#' @export
 methods::setMethod("event_score", "Competition", function(x) {
   event_score(x@floor) +
     event_score(x@pommel_horse) +
