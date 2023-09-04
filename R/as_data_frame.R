@@ -1,6 +1,8 @@
 #' @include event.R
+#' @export
 methods::setGeneric("as.data.frame")
 
+#' @export
 methods::setMethod("as.data.frame", "Routine", function(x) {
   data.frame(
     "gymnast" = x@gymnast@name,
@@ -9,6 +11,7 @@ methods::setMethod("as.data.frame", "Routine", function(x) {
   )
 })
 
+#' @export
 methods::setMethod("as.data.frame", "Pairing", function(x) {
   home <- as.data.frame(x@home)
   guest <- as.data.frame(x@guest)
@@ -20,6 +23,7 @@ methods::setMethod("as.data.frame", "Pairing", function(x) {
   df
 })
 
+#' @export
 methods::setMethod("as.data.frame", "Event", function(x) {
   pairing_data <- do.call(rbind, lapply(x, as.data.frame))
   pairing_data <- cbind(order = 1:4, pairing_data)
