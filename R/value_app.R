@@ -19,22 +19,11 @@ endvalueInputUI <- function(id) {
   valueInputUI(id, max = 20, step = 0.05)
 }
 
-controll_numericInput <- function(input, id, session) {
-  shiny::observeEvent(input[[id]],
-    {
-      if (!is.numeric(input[[id]])) {
-        shiny::updateNumericInput(session, id, value = 0)
-      }
-    },
-    ignoreInit = TRUE
-  )
-}
-
 valueInputServer <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
-    controll_numericInput(input, "x", session)
-    value <- shiny::reactive(input$x)
-    return(value)
+    tryCatch(shiny::reactive(input$x),
+      error = function(e) 0
+    )
   })
 }
 
