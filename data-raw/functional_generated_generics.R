@@ -6,6 +6,7 @@ get_slot <- function(slot) {
 }
 
 setClass("TEST", slots = list(a = "character", b = "character"))
+
 for (e in c("a", "b")) {
   def <- eval(parse(text = sprintf("function(x) standardGeneric('%s')", e)))
   setGeneric(e, def = def)
