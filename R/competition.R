@@ -5,7 +5,8 @@ methods::setClass(
   "competition_information",
   slots = list(
     home_team = "Team",
-    guest_team = "Team"
+    guest_team = "Team",
+    url = "character"
   )
 )
 
