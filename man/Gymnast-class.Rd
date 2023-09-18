@@ -15,5 +15,7 @@ An S4 class that stores a Gymnast
 \item{\code{name}}{Name of the gymnast}
 
 \item{\code{nationality}}{Nationality of the gymnast}
+
+\item{\code{team}}{Team of the gymnast}
 }}
 

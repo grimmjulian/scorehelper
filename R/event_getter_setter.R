@@ -1,5 +1,5 @@
 get_event <- function(event) {
-  function(x) slot(x, event)
+  function(x) methods::slot(x, event)
 }
 
 # No generic for floor method because of base R floor function
@@ -22,60 +22,66 @@ methods::setMethod("horizontal_bar", "Competition", get_event("horizontal_bar"))
 
 
 methods::setGeneric("floor<-", def = function(x, value) standardGeneric("floor<-"))
-methods::setMethod("floor<-", "Competition", 
+methods::setMethod(
+  "floor<-", "Competition",
   function(x, value) {
     home_starts(value) <- home_starts(floor(x))
-    slot(x, "floor") <- value
+    methods::slot(x, "floor") <- value
     methods::validObject(x)
     x
   }
 )
 
 methods::setGeneric("pommel_horse<-", def = function(x, value) standardGeneric("pommel_horse<-"))
-methods::setMethod("pommel_horse<-", "Competition", 
+methods::setMethod(
+  "pommel_horse<-", "Competition",
   function(x, value) {
     home_starts(value) <- home_starts(pommel_horse(x))
-    slot(x, "pommel_horse") <- value
+    methods::slot(x, "pommel_horse") <- value
     methods::validObject(x)
     x
   }
 )
 
 methods::setGeneric("still_rings<-", def = function(x, value) standardGeneric("still_rings<-"))
-methods::setMethod("still_rings<-", "Competition", 
+methods::setMethod(
+  "still_rings<-", "Competition",
   function(x, value) {
     home_starts(value) <- home_starts(still_rings(x))
-    slot(x, "still_rings") <- value
+    methods::slot(x, "still_rings") <- value
     methods::validObject(x)
     x
   }
 )
 
 methods::setGeneric("vault<-", def = function(x, value) standardGeneric("vault<-"))
-methods::setMethod("vault<-", "Competition", 
+methods::setMethod(
+  "vault<-", "Competition",
   function(x, value) {
     home_starts(value) <- home_starts(vault(x))
-    slot(x, "vault") <- value
+    methods::slot(x, "vault") <- value
     methods::validObject(x)
     x
   }
 )
 
 methods::setGeneric("parallel_bars<-", def = function(x, value) standardGeneric("parallel_bars<-"))
-methods::setMethod("parallel_bars<-", "Competition", 
+methods::setMethod(
+  "parallel_bars<-", "Competition",
   function(x, value) {
     home_starts(value) <- home_starts(parallel_bars(x))
-    slot(x, "parallel_bars") <- value
+    methods::slot(x, "parallel_bars") <- value
     methods::validObject(x)
     x
   }
 )
 
 methods::setGeneric("horizontal_bar<-", def = function(x, value) standardGeneric("horizontal_bar<-"))
-methods::setMethod("horizontal_bar<-", "Competition", 
+methods::setMethod(
+  "horizontal_bar<-", "Competition",
   function(x, value) {
     home_starts(value) <- home_starts(horizontal_bar(x))
-    slot(x, "horizontal_bar") <- value
+    methods::slot(x, "horizontal_bar") <- value
     methods::validObject(x)
     x
   }

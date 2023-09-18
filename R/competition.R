@@ -1,5 +1,26 @@
 #' @include events.R
 
+
+methods::setClass(
+  "competition_information",
+  slots = list(
+    home_team = "Team",
+    guest_team = "Team"
+  )
+)
+
+methods::setMethod(
+  "initialize",
+  "competition_information",
+  function(.Object) {
+    .Object@home_team <- methods::new("Team")
+    .Object@guest_team <- methods::new("Team")
+    .Object
+  }
+)
+
+
+
 methods::setClass(
   "Competition",
   slots = c(
@@ -8,7 +29,8 @@ methods::setClass(
     still_rings = "Event",
     vault = "Event",
     parallel_bars = "Event",
-    horizontal_bar = "Event"
+    horizontal_bar = "Event",
+    information = "competition_information"
   )
 )
 
@@ -26,6 +48,7 @@ methods::setMethod(
     vault(.Object) <- methods::new("Event")
     parallel_bars(.Object) <- methods::new("Event")
     horizontal_bar(.Object) <- methods::new("Event")
+    .Object@information <- methods::new("competition_information")
     home_starts(.Object) <- home_starts
     .Object
   }
