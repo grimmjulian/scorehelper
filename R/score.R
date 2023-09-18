@@ -5,6 +5,10 @@
 # https://www.deutsche-turnliga.de/dtl/wissen/regeln.html
 
 calc_score <- function(home = 0, guest = 0) {
+  if (is.na(home) || is.na(guest)) {
+    return(NA_integer_)
+  }
+
   diff <- home - guest
   diff <- abs(diff)
   score <- 0

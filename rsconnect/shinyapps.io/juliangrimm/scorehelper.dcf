@@ -5,12 +5,5 @@ account: juliangrimm
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9817874
-<<<<<<< HEAD
-bundleId: 7665742
+bundleId: 7697924
 url: https://juliangrimm.shinyapps.io/scorehelper/
-when: 1694337234.09594
-lastSyncTime: 1694337234.09594
-=======
-bundleId: 7665948
-url: https://juliangrimm.shinyapps.io/scorehelper/
->>>>>>> origin/main
