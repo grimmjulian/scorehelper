@@ -34,6 +34,7 @@ Collate:
     'competition_app.R'
     'debug_app.R'
     'event_app.R'
+    'event_getter_setter.R'
     'gymnast_app.R'
     'home_starts.R'
     'minimax.R'

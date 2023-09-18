@@ -21,7 +21,22 @@ methods::setClass(
 )
 
 Competition <- function(home_starts = TRUE) {
-  competition <- methods::new("Competition")
-  home_starts(competition) <- home_starts
-  return(competition)
+  methods::new("Competition", home_starts = home_starts)
 }
+
+methods::setMethod(
+  "initialize",
+  "Competition",
+  function(.Object, home_starts = TRUE) {
+    .Object@floor <- methods::new("Event")
+    .Object@pommel_horse <- methods::new("Event")
+    .Object@still_rings <- methods::new("Event")
+    .Object@vault <- methods::new("Event")
+    .Object@parallel_bars <- methods::new("Event")
+    .Object@horizontal_bar <- methods::new("Event")
+    home_starts(.Object) <- home_starts
+    .Object
+  }
+)
+
+
