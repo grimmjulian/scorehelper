@@ -1,12 +1,13 @@
 #' @include events.R
 
-
 methods::setClass(
   "competition_information",
   slots = list(
     home_team = "Team",
     guest_team = "Team",
-    url = "character"
+    url = "character",
+    time = "POSIXct",
+    location = "character"
   )
 )
 
@@ -16,11 +17,10 @@ methods::setMethod(
   function(.Object) {
     .Object@home_team <- methods::new("Team")
     .Object@guest_team <- methods::new("Team")
+    .Object@time <- Sys.time()
     .Object
   }
 )
-
-
 
 methods::setClass(
   "Competition",
@@ -55,6 +55,10 @@ methods::setMethod(
   }
 )
 
+#' Transform a Competition into a list
+#'
+#' @param x An object of class Competition
+#' @export
 methods::setMethod("as.list", "Competition", function(x) {
   list(
     floor = floor(x),

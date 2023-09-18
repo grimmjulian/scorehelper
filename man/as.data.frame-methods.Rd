@@ -2,6 +2,8 @@
 \docType{methods}
 \alias{as.data.frame-methods}
 \alias{as.data.frame,ANY-method}
+\alias{as.data.frame,Competition-method}
+\alias{as.data.frame,competition_information-method}
 \alias{as.data.frame,Event-method}
 \alias{as.data.frame,Pairing-method}
 \alias{as.data.frame,Routine-method}
@@ -13,6 +15,14 @@
 \describe{
 
 \item{\code{signature(x = "ANY")}}{
+%%  ~~describe this method here~~
+}
+
+\item{\code{signature(x = "competition_information")}}{
+%%  ~~describe this method here~~
+}
+
+\item{\code{signature(x = "Competition")}}{
 %%  ~~describe this method here~~
 }
 
