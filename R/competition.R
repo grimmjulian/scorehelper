@@ -69,3 +69,12 @@ methods::setMethod("as.list", "Competition", function(x) {
     horizontal_bar = horizontal_bar(x)
   )
 })
+
+# methods::setGeneric("info", "Competition", function(x) standardGeneric("info"))
+# methods::setMethod("info", "Competition", function(x) x@information)
+#
+# methods::setGeneric("info<-", "Competition", function(x, value) standardGeneric("info<-"))
+# methods::setMethod("info<-", "Competition", function(x, value) {
+#   x@information <- value
+#   x
+# })

@@ -1,5 +1,14 @@
 #' @include pairing.R
 
+event_names <- c(
+  "floor",
+  "pommel_horse",
+  "still_rings",
+  "vault",
+  "parallel_bars",
+  "horizontal_bar"
+)
+
 #' Event Class
 #' @export
 methods::setClass(
