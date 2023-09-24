@@ -32,7 +32,6 @@ Collate:
     'as_data_frame.R'
     'begins_app.R'
     'competition_app.R'
-    'data.R'
     'debug_app.R'
     'event_app.R'
     'event_getter_setter.R'
