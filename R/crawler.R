@@ -9,12 +9,35 @@ extract_table <- function(html, table_nr = 1) {
     rvest::html_table()
 }
 
-extract_information <- function(html, url = NA_character_) {
+extract_team_information <- function(html) {
   results <- extract_table(html, 2)
+  home <- new("Team", as.character(results[1, 1]))
+  guest <- new("Team", as.character(results[1, 6]))
+  list(home = home, guest = guest)
+}
+
+extract_location <- function(html) {
+  html |>
+    extract_table(3) |>
+    _[2, 2] |>
+    as.character()
+}
+
+extract_time <- function(html) {
+  html |>
+    extract_table(3) |>
+    _[1, 2, drop = TRUE] |>
+    as.POSIXct(format = "%d.%m.%Y %H:%M")
+}
+
+extract_information <- function(html, url = NA_character_) {
+  teams <- extract_team_information(html)
   comp_info <- new("competition_information")
-  comp_info@home_team <- new("Team", as.character(results[1, 1]))
-  comp_info@guest_team <- new("Team", as.character(results[1, 6]))
+  comp_info@home_team <- teams[["home"]]
+  comp_info@guest_team <- teams[["guest"]]
   comp_info@url <- url
+  comp_info@location <- extract_location(html)
+  comp_info@time <- extract_time(html)
   comp_info
 }
 
@@ -80,7 +103,12 @@ extract_competition <- function(html, url = NA_character_) {
 
 crawl_competition <- function(url) {
   html <- rvest::read_html(url)
-  extract_competition(html)
+  extract_competition(html, url = url)
+}
+
+is_streaming_url <- function(link) {
+  sites <- c("youtube.com", "sportdeutschland.tv")
+  any(sapply(sites, grepl, x = link))
 }
 
 extract_competition_urls <- function(html) {
@@ -88,7 +116,7 @@ extract_competition_urls <- function(html) {
   links <- table_with_links |>
     rvest::html_nodes("a") |>
     rvest::html_attr("href")
-  links <- links[!grepl(x = links, pattern = "sportdeutschland.tv")]
+  links <- Filter(Negate(is_streaming_url), links)
   paste0("https://www.deutsche-turnliga.de/", links)
 }
 

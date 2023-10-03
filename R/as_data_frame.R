@@ -18,8 +18,10 @@ methods::setMethod("as.data.frame", "Pairing", function(x) {
   guest <- as.data.frame(x@guest)
   s <- score(x)
   df <- cbind(home, score = s[1], guest, score = s[2], home_starts = home_starts(x))
-  colnames(df)[seq_len(ncol(home))] <- paste0(colnames(df)[seq_len(ncol(home))], "_home")
-  colnames(df)[seq_len(ncol(home)) + ncol(home)] <- paste0(colnames(df)[seq_len(ncol(home)) + ncol(home)], "_guest")
+  home_cols <- seq_len(ncol(home) + 1)
+  guest_cols <- home_cols + ncol(home) + 1
+  colnames(df)[home_cols] <- paste0(colnames(df)[home_cols], "_home")
+  colnames(df)[guest_cols] <- paste0(colnames(df)[guest_cols], "_guest")
   rownames(df) <- NULL
   df
 })
@@ -43,5 +45,5 @@ methods::setMethod("as.data.frame", "Competition", function(x) {
 
 #' @export
 methods::setMethod("as.data.frame", "competition_information", function(x) {
-  data.frame(url = x@url, time = x@time)
+  data.frame(url = x@url, time = x@time, location = x@location)
 })

@@ -23,3 +23,30 @@ competitions <- urls |>
   lapply(crawl_competition)
 
 usethis::use_data(competitions, overwrite = TRUE)
+
+competitions_csv_data <- competitions |>
+  lapply(as.data.frame) |>
+  do.call(rbind, args = _)
+
+write.csv2(competitions_csv_data, file = "data-raw/competitions.csv")
+
+home_routines_csv <- function(df) {
+  suffix_good <- "_home$"
+  suffix_bad <- "_guest$"
+  columns <- grep(suffix_bad, names(df))
+  df <- df[, -columns]
+  colnames(df) <- sub(suffix_good, "", colnames(df))
+  df
+}
+
+guest_routines_csv <- function(df) {
+  suffix_good <- "_guest$"
+  suffix_bad <- "_home$"
+  columns <- grep(suffix_bad, names(df))
+  df <- df[, -columns]
+  colnames(df) <- sub(suffix_good, "", colnames(df))
+  df
+}
+
+routines_csv_data_home <- home_routines_csv(competitions_csv_data)
+routines_csv_data_guest <- guest_routines_csv(competitions_csv_data)
