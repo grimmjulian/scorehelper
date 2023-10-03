@@ -1,7 +1,11 @@
-extract_table <- function(html, table_nr = 1) {
+extract_table_raw <- function(html, table_nr = 1) {
   html |>
     rvest::html_elements("table") |>
-    _[[table_nr]] |>
+    _[[table_nr]]
+}
+
+extract_table <- function(html, table_nr = 1) {
+  extract_table_raw(html, table_nr) |>
     rvest::html_table()
 }
 
@@ -77,4 +81,20 @@ extract_competition <- function(html, url = NA_character_) {
 crawl_competition <- function(url) {
   html <- rvest::read_html(url)
   extract_competition(html)
+}
+
+extract_competition_urls <- function(html) {
+  table_with_links <- extract_table_raw(html, 1)
+  links <- table_with_links |>
+    rvest::html_nodes("a") |>
+    rvest::html_attr("href")
+  links <- links[!grepl(x = links, pattern = "sportdeutschland.tv")]
+  paste0("https://www.deutsche-turnliga.de/", links)
+}
+
+crawl_competition_urls <- function(urls) {
+  urls |>
+    lapply(rvest::read_html) |>
+    lapply(extract_competition_urls) |>
+    unlist()
 }

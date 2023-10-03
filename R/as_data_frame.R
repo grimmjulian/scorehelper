@@ -33,15 +33,15 @@ methods::setMethod("as.data.frame", "Event", function(x) {
 
 #' @export
 methods::setMethod("as.data.frame", "Competition", function(x) {
-  comp_data <- do.call(rbind, lapply(as.list(x), as.data.frame))
-  order <- rep(1:6, each = 4)
-  df <- cbind(order = rownames(comp_data), event_order = order, comp_data)
-  rownames(df) <- NULL
-  df <- rbind(df, as.data.frame(x$competition_information))
-  df
+  event <- rep(event_names, each = 4)
+  df <- x |>
+    as.list() |>
+    lapply(as.data.frame) |>
+    do.call(rbind, args = _)
+  cbind(event, df, as.data.frame(x@information))
 })
 
 #' @export
 methods::setMethod("as.data.frame", "competition_information", function(x) {
-  data.frame(url = x$url, date = x$date, location = x$location)
+  data.frame(url = x@url, time = x@time)
 })
