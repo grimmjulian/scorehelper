@@ -102,6 +102,7 @@ extract_competition <- function(html, url = NA_character_) {
 }
 
 crawl_competition <- function(url) {
+  message("Crawl ", url)
   html <- rvest::read_html(url)
   extract_competition(html, url = url)
 }
