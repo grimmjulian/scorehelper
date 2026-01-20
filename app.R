@@ -1,11 +1,13 @@
+options(shiny.autoload.r=FALSE)
 
-library(shiny)
+devtools::load_all()
 
-ui <- fluidPage(
+ui <- shiny::fluidPage(
 	competition_ui("competition")
 )
 
 server <- function(input, output, session) {
+	competition_server("competition")
 }
 
-shinyApp(ui, server)
+shiny::shinyApp(ui, server)
