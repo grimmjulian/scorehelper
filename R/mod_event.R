@@ -1,18 +1,50 @@
 #' @include mod_pairing.R event.R
+
+event_team_result_ui <- function(id) {
+	ns <- shiny::NS(id)
+	start <- ""
+	if (endsWith(id, "home")) {
+		start <- shiny::h4("Gesamt")
+	}
+	shiny::tagList(
+		shiny::fluidRow(
+			shiny::column(8, start),
+			shiny::column(2, shiny::textOutput(ns("end_value"))),
+			shiny::column(2, shiny::textOutput(ns("score")))
+		)
+	)
+}
+
+event_team_result_server <- function(id, e) {
+	team_index <- 2
+	if (endsWith(id, "home")) {
+		team_index <- 1
+	}
+	shiny::moduleServer(id, function(input, output, session) {
+		output$score <- shiny::renderText(e()@score[[team_index]])
+		output$end_value <- shiny::renderText({
+			e() |>
+				S7::prop(name = id) |>
+				sapply(\(x) x@end_value) |>
+				sum()
+		})
+	})
+}
+
 event_result_ui <- function(id) {
 	ns <- shiny::NS(id)
-	pairing_layout(
-		shiny::h4("Gesamt"),
-		shiny::textOutput(ns("home_score")),
-		"",
-		shiny::textOutput(ns("guest_score"))
+	shiny::tagList(
+		shiny::fluidRow(
+			shiny::column(6, event_team_result_ui(ns("home"))),
+			shiny::column(6, event_team_result_ui(ns("guest")))
+		)
 	)
 }
 
 event_result_server <- function(id, e) {
 	shiny::moduleServer(id, function(input, output, session) {
-		output$home_score <- shiny::renderText(e()@score[[1]])
-		output$guest_score <- shiny::renderText(e()@score[[2]])
+		event_team_result_server("home", e)
+		event_team_result_server("guest", e)
 	})
 }
 
