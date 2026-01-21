@@ -1,3 +1,4 @@
+#' @include routine.R
 score <- S7::new_generic("score", c("x", "y"))
 
 S7::method(
@@ -26,11 +27,4 @@ S7::method(
 	list(routine, routine)
 ) <- function(x, y) {
 	score(x@end_value, y@end_value)
-}
-
-S7::method(
-	score,
-	list(pairing, S7::class_missing)
-) <- function(x, y) {
-	score(x@home, x@guest)
 }
