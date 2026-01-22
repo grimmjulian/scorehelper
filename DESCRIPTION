@@ -13,10 +13,10 @@ Collate:
     'pairing.R'
     'event.R'
     'competition.R'
-    'mod_competition.R'
     'mod_routine.R'
     'mod_pairing.R'
     'mod_event.R'
+    'mod_competition.R'
     'score.R'
 Imports: 
     S7,

@@ -10,3 +10,7 @@ test_that("score works for routines", {
 	expect_equal(score(r1, r2), c(4, 0))
 	expect_equal(score(r2, r1), c(0, 4))
 })
+
+test_that("score works for extrem values", {
+	expect_equal(score(1005, 5.1), c(10, 0))
+})

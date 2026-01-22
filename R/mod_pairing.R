@@ -26,12 +26,12 @@ pairing_team_server <- function(id, p) {
 
 pairing_ui <- function(id) {
 	ns <- shiny::NS(id)
-	shiny::tagList(
-		shiny::fluidRow(
-			shiny::column(6, pairing_team_ui(ns("home"))),
-			shiny::column(6, pairing_team_ui(ns("guest")))
-		)
-	)
+	c("home", "guest") |>
+		lapply(ns) |>
+		lapply(pairing_team_ui) |>
+		lapply(shiny::column, width = 6) |>
+		shiny::fluidRow() |>
+		shiny::tagList()
 }
 
 pairing_server <- function(id) {

@@ -70,7 +70,7 @@ event_ui <- function(id, title) {
 
 event_server <- function(id) {
 	shiny::moduleServer(id, function(input, output, session) {
-		e <- shiny::reactiveVal(event())
+		e <- shiny::reactiveVal(event()) # nolint: object_usage_linter.
 		pairings_list <- shiny::reactiveVal(vector("list", 4))
 
 		lapply(1:4, function(i) {
@@ -93,5 +93,6 @@ event_server <- function(id) {
 			"result",
 			shiny::reactive(e())
 		)
+		return(e)
 	})
 }
