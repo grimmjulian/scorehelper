@@ -12,6 +12,7 @@ Collate:
     'routine.R'
     'pairing.R'
     'event.R'
+    'competition.R'
     'mod_competition.R'
     'mod_routine.R'
     'mod_pairing.R'
