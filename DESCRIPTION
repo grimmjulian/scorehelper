@@ -19,6 +19,7 @@ Collate:
     'mod_competition.R'
     'score.R'
 Imports: 
+    pkgload,
     S7,
     shiny
 Suggests: 

@@ -1,7 +1,3 @@
-options(shiny.autoload.r=FALSE)
-
-devtools::load_all()
-
 ui <- shiny::fluidPage(
 	competition_ui("competition")
 )
