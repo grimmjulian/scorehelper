@@ -1,0 +1,16 @@
+# R
+.Rhistory
+.RData
+.Rproj.user
+
+# renv
+renv/library/
+renv/staging/
+
+# Build artifacts
+*.tar.gz
+*.Rcheck/
+
+# Optional: Shiny app logs
+*.log
+
