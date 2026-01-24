@@ -1,53 +1,40 @@
-# Makefile for an R package using renv (no devtools)
+ROXYGEN_STAMP := .roxygen.stamp
+R_SOURCES := $(shell find R -name '*.R')
+PKG_NAME := $(shell Rscript -e "cat(desc::desc_get('Package'))")
+PKG_VERSION := $(shell Rscript -e "cat(desc::desc_get('Version'))")
+TARBALL := $(PKG_NAME)_$(PKG_VERSION).tar.gz
 
-# Package name
-PACKAGE_NAME := scorehelper
-# Path to the package source
-PKG_PATH := .
+.PHONY: doc
+doc: $(ROXYGEN_STAMP) README.md
 
-# Default target
-all: build
+$(ROXYGEN_STAMP): $(R_SOURCES) DESCRIPTION
+	R -s -e "pkgload::load_all('.'); roxygen2::roxygenize('.')"
+	touch $(ROXYGEN_STAMP)
 
-# --------------------
-# 1. Restore package dependencies with renv
-# --------------------
-deps:
-	@echo "Restoring R environment with renv..."
-	Rscript -e "if (file.exists('renv.lock')) renv::restore(prompt = FALSE) else cat('No renv.lock found\n')"
+README.md: README.Rmd
+	Rscript -e "rmarkdown::render('README.Rmd', output_format='github_document', quiet=TRUE)"
+	rm -f README.html
 
-# --------------------
-# 2. Build the package tar.gz
-# --------------------
-build: deps
-	@echo "Building package..."
-	R CMD build $(PKG_PATH)
+$(TARBALL): $(ROXYGEN_STAMP) README.md $(R_SOURCES) DESCRIPTION
+	rm -f *.tar.gz
+	R CMD build --compact-vignettes="gs+qpdf" .
 
-# --------------------
-# 3. Check the package
-# --------------------
-check: build
-	@echo "Checking package..."
-	R CMD check $(PACKAGE_NAME)_*.tar.gz
+.PHONY: build
+build: $(TARBALL)
 
-# --------------------
-# 4. Install the package locally
-# --------------------
-install: build
-	@echo "Installing package..."
-	R CMD INSTALL $(PACKAGE_NAME)_*.tar.gz
+.PHONY: check
+check: $(TARBALL)
+	R CMD check *.tar.gz
 
-# --------------------
-# 5. Clean build artifacts
-# --------------------
+.PHONY: install
+install: $(TARBALL) 
+	R CMD INSTALL *.tar.gz
+
+.PHONY: clean
 clean:
-	@echo "Cleaning..."
-	rm -rf *.tar.gz *.Rcheck
+	rm -f *.tar.gz .roxygen.stamp
+	rm -rf *.Rcheck/
 
-# --------------------
-# 6. Test (if using testthat)
-# --------------------
-test: deps
-	@echo "Running tests..."
-	Rscript -e "if (requireNamespace('testthat', quietly=TRUE)) testthat::test_dir('tests') else cat('testthat not installed\n')"
-
-.PHONY: all deps build check install clean test
+.PHONY: test
+test:
+	R -s -e "testthat::test_local()"

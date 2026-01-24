@@ -14,3 +14,4 @@ renv/staging/
 # Optional: Shiny app logs
 *.log
 
+.roxygen.stamp
